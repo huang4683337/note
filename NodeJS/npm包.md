@@ -21,7 +21,7 @@
 初始化当前文件夹
 
 ```bash
-$ npm init   # 初始化文件夹
+$ npm init   # 初始化文件夹 package.json
 
 package name: 包的名字
 version: 当前包的版本号
@@ -69,6 +69,15 @@ $ npm config set registry https://registry.npm.taobao.org
 $ npm config list
 $ npm config get registry  
 
+```
+
+
+
+## 6、上传npm包
+
+```bash
+$ npm init # 初始化包 会出现一个 package.json 文件 
+$ npm publish   # 向npm发布自己的包  我们需要去npm官网创建自己的账号
 ```
 
 

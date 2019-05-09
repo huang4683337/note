@@ -98,7 +98,7 @@ export default {
 | muted       | 用来获取或设置静音状态。值为boolean                          |
 | volume      | 控制音量的属性值为0-1;0为音量最小，1为音量最大               |
 | startTime   | 返回起始播放时间                                             |
-| error       | 返回错误代码，为uull的时候为正常。否则可以通过Music.error.code来获取具体的错误代码：<br/>1.用户终止 <br/>2.网络错误 <br/>3.解码错误<br/> 4.URL无效 |
+| error       | 返回错误代码，为uull的时候为正常。否则可以通过Music.error.code来获取具体的错误码：<br/>1.用户终止 <br/>2.网络错误 <br/>3.解码错误<br/> 4.URL无效 |
 | currentTime | 用来获取或控制当前播放的时间，单位为s。                      |
 | currentSrc  | 以字符串形式返回正在播放或已加载的文件                       |
 

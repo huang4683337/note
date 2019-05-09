@@ -21,6 +21,8 @@ axios.defaults.transformRequest= [function (data) {
   // Do whatever you want to transform the data
   return JSON.stringify(data);
 }];
+
+
 // http request 拦截器
 axios.interceptors.request.use(
   config => {
@@ -78,10 +80,12 @@ export default {
 
 ```javascript
 import axios from './axiosConfig';
+import common from './../../assets/js/common'
 
 export default {
 
   getRecCourse: function (params) {
+    //var url = `${common.SIPOPAPI_Base.admin}/userManager/getUsers/{pageNum}/{pageSize}`;
     var url = '/app/lesson/getRecCourse';
     return axios.get(url, params);
   },
@@ -95,5 +99,40 @@ export default {
   },
 
 };
+```
+
+
+
+### common.js
+
+```javascript
+module.exports={
+  // 获取地址栏参数
+  GetQueryString:(i)=>{
+    var j = location.search.match(new RegExp("[?&]" + i + "=([^&]*)(&?)", "i"));
+    return j ? j[1] : j
+  },
+  SIPOPAPI_Base: process.env.NODE_API,
+
+  isEmpty: function (obj) {
+    if (obj == null || obj == undefined) {
+      return true;
+    }
+    if (obj instanceof Array) {
+      return obj.length == 0 ? true : false;
+    } else if (typeof obj == 'string' || obj instanceof String) {
+      return obj == '' ? true : false;
+    } else if (obj instanceof Object) {
+      for (var i in obj) {
+        return false;
+      }
+      return true;
+    } else {
+      return false;
+    }
+  },
+
+}
+
 ```
 
