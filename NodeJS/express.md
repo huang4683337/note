@@ -6,7 +6,7 @@
 
 
 
-## 安装
+## 1、安装
 
 ```bash
 $ mkdir myapp		# 创建目录
@@ -20,9 +20,9 @@ $ npm install express --no-save	# 临时使用 express 不保存在项目依赖�
 
 
 
-## 使用
+## 2、使用
 
-### 创建服务
+### 2.1、创建服务
 
 ```javascript
 // 引入 express
@@ -39,7 +39,7 @@ server.listen(3000, ()=>{
 
 
 
-###响应
+###2.1、响应
 
 ```javascript
 res.send();
@@ -49,7 +49,7 @@ res.send();
 
 
 
-### 路由
+### 2.3、路由
 
 路由器
 
@@ -91,7 +91,7 @@ server
 
 
 
-### 提供静态文件
+### 2.4、提供静态文件
 
 ```javascript
 // 公开指定目录 我们通过文件路径可以访问公开目录下的所有文件
@@ -108,7 +108,37 @@ server.use( express.static('./public/') );
 
 
 
-## 配置模板引擎
+## 3、配置模板引擎
 
 [art-tempalte 官方文档](http://aui.github.io/art-template/zh-cn/)
+
+### 3.1、安装
+
+```bash
+$ npm install --save art-template 
+$ npm install --save express-art-template
+```
+
+
+
+### 3.2、配置
+
+```bash
+server.engine('html', require('express-art-template'));
+
+# 第一个参数表示, 渲染以 .html 结尾的文件时, 使用模板引擎
+# express-art-template 是专门在 express 框架中 把 art-template 整合到 express 中, 这是因为 express-art-template 依赖于 art-template
+```
+
+### 3.3、使用
+
+```javascript
+server.get('/', (req, res)=>{
+    res.render('404.art');
+})
+
+//  res.render('模板文件名字', {模板数据});  art-template会默认去项目的views目录中查找
+
+// 	server.set('views', xxx); 将默认的模板文件目录 修改为 xxx
+```
 
