@@ -39,11 +39,7 @@ server.listen(3000, ()=>{
 
 
 
-<<<<<<< HEAD
-### 响应
-=======
 ###2.1、响应
->>>>>>> 51c7398bb0dabb0f80d13461f25248ddf6337674
 
 ```javascript
 res.send();
