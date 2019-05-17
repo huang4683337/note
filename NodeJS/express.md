@@ -142,3 +142,96 @@ server.get('/', (req, res)=>{
 // 	server.set('views', xxx); 将默认的模板文件目录 修改为 xxx
 ```
 
+
+
+## 4、post 请求处理
+
+### 4.1 安装中间件
+
+```bash
+$ npm install body-parser --save
+```
+
+
+
+### 4.2 引入
+
+```javascript
+var bodyParser = require('body-parser');
+```
+
+
+
+### 4.3 配置
+
+```javascript
+server.use(bodyParser.urlencoded({ extended: false }))
+
+server.use(bodyParser.json())
+```
+
+
+
+### 4.4 使用
+
+```html
+<form action="/post" method="post">
+  名字: <input type="text" name='name'>
+
+  <br>
+
+  内容: <textarea name="cont" id="" cols="30" rows="10"></textarea>
+
+
+  <button type="submit">提交</button>
+</form>
+```
+
+
+
+```javascript
+// rea.body 就能拿到 form 表单提交的数据
+
+server.post('/post', (req, res)=>{
+  console.log(req.body);
+  res.end(req.body);
+})
+```
+
+
+
+## 5、路由配置
+
+router.js
+
+```javascript
+const express = require('express');
+
+// 创建一个路由容器
+var router = express.Router();
+
+// 路由挂在到容器中
+router.get('/', (req, res)=>{
+  res.end('你看到我了吗')
+})
+
+// 导出 router
+module.exports = router;
+```
+
+
+
+index.js
+
+```javascript
+// 引入路由文件
+const router = require('./router');
+
+// 引入 express
+const express = require('express');
+const server = express();
+
+// 将导出的 router 挂载到服务中
+server.use(router)
+```
+
