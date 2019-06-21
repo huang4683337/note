@@ -19,7 +19,7 @@
 | animation-iteration-count |       循环次数(默认值为1)        | animation-iteration-count: infinite; |
 |    animation-direction    |     动画方向(默认值为normal)     |     animation-direction: normal;     |
 |   animation-play-state    | 播放状态(默认值为播放：running)  |    animation-play-state: paused;     |
-|    animation-fill-mode    |      填充模式(默认值为none)      |      animation-fill-mode: none;      |
+|    animation-fill-mode    |      填充模式(默认值为none)      |    animation-fill-mode: forwards;    |
 
 ### `animation-name`
 
@@ -47,6 +47,10 @@ div{
 @keyframes test{
     0%{left: 0px;animation-timing-function: ease;}
 }
+
+/*
+liner：匀速；ease：逐渐慢；ease-in：加速；ease-out：减速；ease-in-out:先加速后减速
+*/
 ```
 
 ### `animation-iteration-count`
