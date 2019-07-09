@@ -1,6 +1,6 @@
-## api文件夹
+# api文件夹
 
-### axiosConfig.js
+## axiosConfig.js
 
 ```javascript
 require('es6-promise').polyfill();
