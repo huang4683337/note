@@ -82,5 +82,16 @@ $ npm publish   # 向npm发布自己的包  我们需要去npm官网创建自己
 
 
 
+## 7、package-lock.json
 
+```shell
+$ npm i 	#	会生成一个 package.json 文件
+
+$ npm --svae
+# 在npm@5以后会
+# 安装时不需要 --save，直接 npm i 包
+# 会生成 package-lock.json 文件， 保存node_modules里包的所有信息（版本、地址、依赖于什么包）
+# package-lock.json文件在 npm i 时 比package.json要快
+# package-lock.json文件可以用来锁定包的版本，如果项目当时下载的是'1.1.1'版本，我们在npm i时就会自动安装最新版本， 但是存在package-lock时 npm i 时会按照package-lock规定的版本，不会自动下载最高版本。
+```
 

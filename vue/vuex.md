@@ -6,7 +6,7 @@
 >
 > 用户操作视图—>通过  `dispatn`  发出请求 发送给  `action`  —> `Action`  通过 `store/context.commit`  向 `mutation`  提交一个异步请求 —>`mutation`  对数据进行处理-->数据改变—>`computed`   监听导数据改变   获取到数据-->视图改变
 
-![vuex1](/Users/mrhuang/Downloads/vuex1.png)
+![vuex1](/Users/mrhuang/Downloads/笔记图片/vuex1.png)
 
 ## 2、vuex 在项目中的应用
 

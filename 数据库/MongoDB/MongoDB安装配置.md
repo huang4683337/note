@@ -1,45 +1,10 @@
 # MongoDB
 
-##1、HomeBrew安装 MongoDB
+##1、安装 MongoDB
 
-```shell
-$  brew install mongodb  # mac 上有homebrew
+[MongoDB下载地址](https://www.mongodb.com/download-center/community?jmp=nav)
 
-$ brew install mongodb --devel # 安装最新版本
-
-$ brew install mongodb --with-openssl # 如果要安装支持 TLS/SSL 
-```
-
-> 安装命令输入完毕后我们可能会碰到这么一个错误
->
->   [#<Dependency: "python@2" []>, #<Options: []>]
->
-> cannot be installed as binary package and must be built from source.
->
-> Install the Command Line Tools:
->
->   xcode-select --install
-
-
-
-```shell
-$ brew search mongodb  # 这种情况下我们需要一个兼容版本
-
-# 将得到以下答案
-`==> Searching local taps...
- mongodb                 mongodb@3.0             mongodb@3.2             
- mongodb@3.4             percona-server-mongodb`
-```
-
-
-
-```shell
-$ brew install mongodb@3.0  # 选择一个版本进行安装
-```
-
-
-
-##2、配置MongoDB
+## 2、配置MongoDB
 
 >安装完 MongoDB 后，需要配置一下 MongoDB ，不然是无法启动服务端的。
 >
@@ -76,7 +41,9 @@ export PATH=${PATH}: mongodb安装路径
 $ source ~/.bash_profile # 使环境变量生效
 ```
 
-
+```shell
+$ mongod --version # 查看版本
+```
 
 ## 3、运行 MongoDB
 
@@ -88,7 +55,7 @@ $ mongod  # 是用来连接到mongodb数据库服务器的，即服务器端。
 # It looks like you are trying to access MongoDB over HTTP on the native driver port.
 
 
-
+# 链接数据库
 # 再次打开一个终端
 $ mongo  # 是用来启动MongoDB shell的，是mongodb的命令行客户端
 ```
@@ -99,9 +66,9 @@ $ mongo  # 是用来启动MongoDB shell的，是mongodb的命令行客户端
 
 ```shell
 # 在打开 mongo 的终端
-$ use admin;
+# $ use admin;
 
-$ db.shutdownServer();
+# $ db.shutdownServer();
 
 $ exit;
 ```
