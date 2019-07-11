@@ -1,8 +1,10 @@
 # MongoDB
 
-##1、安装 MongoDB
+## 1、HomeBrew安装 MongoDB
 
 [MongoDB下载地址](https://www.mongodb.com/download-center/community?jmp=nav)
+
+
 
 ## 2、配置MongoDB
 
@@ -10,7 +12,7 @@
 >
 >如果是第一次运行MongoDB，需要指定MongoDB进程读写数据的目录，默认情况下，MongoDB会使用 /data/db 这个目录来写入数据，因此在根目录下直接创建 data/db文件夹
 
-###2-1、创建数据库文件夹
+### 2-1、创建数据库文件夹
 
 ```shell
 $ mkdir -p /data/db

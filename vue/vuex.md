@@ -1,6 +1,6 @@
 # vuex
 
-##1、vuex执行流程
+## 1、vuex执行流程
 
 > 页面刚打开  `computed`  获取一次数据改变视图
 >
@@ -10,15 +10,15 @@
 
 ## 2、vuex 在项目中的应用
 
-###2-1、安装vuex
+### 2-1、安装vuex
 
 ```shell
 $ npm install vuex # 项目中安装vuex
 ```
 
-###2-2、使用store
+### 2-2、使用store
 
-####创建store
+#### 创建store
 
 ```javascript
 //src文件下创建文件夹store，以及文件index.js  ==>路径为  src/store/index.js
@@ -76,7 +76,7 @@ computed: {
 }
 ```
 
-####mapState
+#### mapState
 
 > 当一个组件需要获取多个状态时, 为了避免频繁的声明计算属性, 我们利用mapState帮我们自动生成计算属性; 我们一共有 四种 体现方式供您选择
 
@@ -104,7 +104,7 @@ computed: mapState([
 ])
 ```
 
-####...mapState
+#### ...mapState
 
 >如果我们组件内部也有自己的计算属性需要结合在store中拿到的属性, 
 >
@@ -122,7 +122,7 @@ computed: {
  }
 ```
 
-###2-4、store之getter
+### 2-4、store之getter
 
 > getter相当于时store的计算属性 ,getter返回的结果会根据对应的依赖缓存,
 >
@@ -132,7 +132,7 @@ computed: {
 >
 > 例如：this.$store.getters.todoTrue()
 
-####getter
+#### getter
 
 ```javascript
 //store/index.js文件中：
@@ -159,7 +159,7 @@ computed: {
 },
 ```
 
-####...mapGetters
+#### ...mapGetters
 
 ```javascript
 import { mapGetters } from ‘vuex'
@@ -180,7 +180,7 @@ mapGetters({
 })
 ```
 
-###2-5、store之Mutation
+### 2-5、store之Mutation
 
 > 主要用于数据计算和处理，处理同步数据
 
@@ -232,7 +232,7 @@ computed: {
 }
 ```
 
-####使用常量替代 Mutation 事件类型
+#### 使用常量替代 Mutation 事件类型
 
 ```javascript
 //新建mutation_types.js文件 ==> store/mutation_types.js
@@ -281,7 +281,7 @@ methods: {
 }
 ```
 
-####...mapMutations
+#### ...mapMutations
 
 ```javascript
 //html部分:
@@ -354,7 +354,7 @@ methods: {
 }
 ```
 
-####...mapActions
+#### ...mapActions
 
 ```javascript
  methods: {
@@ -370,7 +370,7 @@ methods: {
   }
 ```
 
-####组合Action
+#### 组合Action
 
 ```javascript
 // Promise:

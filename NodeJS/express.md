@@ -237,7 +237,7 @@ server.use(router)
 
 
 
-##6、ES6
+## 6、ES6
 
 ### 6-1、find
 
