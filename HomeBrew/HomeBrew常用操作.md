@@ -1,5 +1,3 @@
-# HomeBrew
-
 ## 1、安装卸载
 
 ```shell
