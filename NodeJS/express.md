@@ -134,7 +134,7 @@ server.engine('html', require('express-art-template'));
 
 ```javascript
 server.get('/', (req, res)=>{
-    res.render('404.art');
+    res.render('404.html');
 })
 
 //  res.render('模板文件名字', {模板数据});  art-template会默认去项目的views目录中查找
