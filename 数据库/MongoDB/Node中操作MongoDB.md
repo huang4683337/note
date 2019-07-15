@@ -49,6 +49,10 @@ $ db.dropDatabase()	# 删除当前使用数据库
 
 
 
+==**mongoose中所有的方法都能使用promise**==
+
+
+
 ## 3、起步
 
 安装：

@@ -95,3 +95,13 @@ fs.readFile('./ejs.html', (err, data) => {
 })
 ```
 
+
+
+### 5、公共部分的处理
+
+> 如何实现头部、底部公共部分的处理
+
+> 自行查看 [模板继承]([https://aui.github.io/art-template/zh-cn/docs/syntax.html#%E6%A8%A1%E6%9D%BF%E7%BB%A7%E6%89%BF](https://aui.github.io/art-template/zh-cn/docs/syntax.html#模板继承))
+
+> 可以继承 <style></style>、<div></div>、<script></script>
+
