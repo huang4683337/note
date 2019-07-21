@@ -8,26 +8,29 @@
 
 
 
-## promise
+## promise基础
 
 ```javascript
 // promise是一个构造函数
 
 // 1- 创建一个promise容器, 容器初始状态为 Pending
 /*
-resolve: 容器中函数执行成功 Pending ==> resolve ==> resolve 为 .then() 中的回调函数1
-reject: 容器中函数执行失败 Pending ==> reject ==> resolve 为 .then() 中的回调函数2
+resolve: 容器中函数执行成功 Pending ==> resolve ==> resolve 为 .then() 中的回调函数res
+reject: 容器中函数执行失败 Pending ==> reject ==> resolve 为 .then() 中的回调函数err
 */
 
 new Promise((resolve, reject) => {
     setTimeout(() => {
-        resolve('成功了');
-        //reject('失败了');
+      	if(/*异步操作成功*/){
+           resolve('成功了');
+        }else{
+           reject('失败了');  
+        }
     }, 2000)
 })
 .then(
   		res => { console.log(res) },  // 成功了
-      err => { console.log(err) }
+      err => { console.log(err) },  // 失败了
 )
 ```
 
@@ -85,4 +88,21 @@ pro(1)
 ```
 
 
+
+## Promise 的then 与 async await 写法相互转化
+
+```javascript
+async function f() {
+
+    let promise = new Promise((resolve, reject) => {
+        setTimeout(() => resolve("done!"), 1000)
+    });
+
+    let result = await promise; // 等待至promise获得结果 (*)
+
+    console.log(result); // "done!"
+}
+
+f();
+```
 
