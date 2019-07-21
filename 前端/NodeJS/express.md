@@ -16,6 +16,8 @@ $ npm init [--yes]	# 初始化创建 package.json 文件  （--yes 默认包信�
 
 $ npm install express --save	# 安装 express 并保存在项目依赖列表中
 $ npm install express --no-save	# 临时使用 express 不保存在项目依赖列表中
+
+$ npm install --save art-template  express-art-template 	# 安装模板
 ```
 
 
@@ -23,6 +25,8 @@ $ npm install express --no-save	# 临时使用 express 不保存在项目依赖�
 ## 2、使用
 
 ### 2.1、创建服务
+
+> 创建index.js文件
 
 ```javascript
 // 引入 express
@@ -42,7 +46,9 @@ server.listen(3000, ()=>{
 ###2.1、响应
 
 ```javascript
-res.send();
+server.get('/', (req, res)=>{
+    res.send('hello')
+})
 
 //方法封装了 原生的 end、write、setHeader 等方法
 ```
@@ -93,11 +99,21 @@ server
 
 ### 2.4、提供静态文件
 
+```shell
+$ npm install path --save  # 安装node 
+```
+
+
+
+> 在 index.js 文件中
+
 ```javascript
 // 公开指定目录 我们通过文件路径可以访问公开目录下的所有文件
 
+const path = require('path');
+
 // http://localhost:3000/static/xx  ==> 起别名
-server.use('/static/', express.static('./public/') );
+server.use('/public/', express.static(path.join(__dirname, './public/')));
 
 
 // http://localhost:3000/xx
@@ -114,32 +130,54 @@ server.use( express.static('./public/') );
 
 ### 3.1、安装
 
-```bash
+```shell
 $ npm install --save art-template 
 $ npm install --save express-art-template
+
+# 或者
+
+$ npm install --save art-template  express-art-template 	
 ```
 
 
 
 ### 3.2、配置为 .html结尾的
 
-```bash
+```javascript
+/*
+在 express 中使用 art-template, 
+.html 后缀的文件使用 art-template 模板解析  
+默认 html文件 在 viws 文件夹中
+*/
+
+// 第一个参数表示, 渲染以 .html 结尾的文件时, 使用模板引擎
 server.engine('html', require('express-art-template'));
 
-# 第一个参数表示, 渲染以 .html 结尾的文件时, 使用模板引擎
-# express-art-template 是专门在 express 框架中 把 art-template 整合到 express 中, 这是因为 express-art-template 依赖于 art-template
+// 将默认的 views 文件夹为 htmls
+// 	server.set('views', xxx); 将默认的模板文件目录 修改为 xxx
+server.set('views', path.join(__dirname, './htmls'))
 ```
 
 ### 3.3、使用
 
+```html
+<!-- 新建文件夹views -->
+<!-- 新建文件 views/index.html -->
+
+<h1>{{name}}</h1>
+```
+
+
+
+> 在 index.js 文件中
+
 ```javascript
-server.get('/', (req, res)=>{
-    res.render('404.html');
-})
-
 //  res.render('模板文件名字', {模板数据});  art-template会默认去项目的views目录中查找
-
-// 	server.set('views', xxx); 将默认的模板文件目录 修改为 xxx
+server.get('/', (req, res)=>{
+    res.render('index.html',{
+      name:'我是名字'
+    });
+})
 ```
 
 
