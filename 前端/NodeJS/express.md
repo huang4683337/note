@@ -208,7 +208,7 @@ server.use(bodyParser.urlencoded({ extended: false }))
 server.use(bodyParser.json())
 ```
 
-
+==如果配置了路由文件的话，中间件的引入和配置要放在路由文件的导入之前，否则在路由中访问req.body为undefined==
 
 ### 4.4 使用
 
@@ -243,6 +243,7 @@ server.post('/post', (req, res)=>{
 router.js
 
 ```javascript
+// 引入express
 const express = require('express');
 
 // 创建一个路由容器
@@ -250,7 +251,7 @@ var router = express.Router();
 
 // 路由挂在到容器中
 router.get('/', (req, res)=>{
-  res.end('你看到我了吗')
+  res.end('你看到我了吗');
 })
 
 // 导出 router
