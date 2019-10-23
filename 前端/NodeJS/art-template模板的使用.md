@@ -2,7 +2,7 @@
 
 ### 1. 文档
 
-[art-tempalte 官方文档](http://aui.github.io/art-template/zh-cn/)
+[art-tempalte 官方文档](http://aui.github.io/art-template/zh-cn/docs/)
 
 ### 2. 安装
 
@@ -11,6 +11,8 @@ $ npm install art-template --save
 ```
 
 ### 3. 在html中使用
+
+[Github-Demo](https://github.com/huang4683337/nodeJs/tree/master/ejs/template_html)
 
 ```html
 <!DOCTYPE html>
@@ -49,10 +51,14 @@ $ npm install art-template --save
 </script>
 ```
 
+
+
 ### 4. 在node中使用
 
+[Github-Demo](https://github.com/huang4683337/nodeJs/tree/master/ejs/template_node)
+
 ```html
-<!--ejs.html-->
+<!--index.html-->
 
 <!DOCTYPE html>
 <html lang="zh-cn">
@@ -71,28 +77,42 @@ $ npm install art-template --save
 ```
 
 ```javascript
-// ejs.js
+// index.js
 
-var template = require('art-template');
+var http = require('http'); // 建立 node 服务使用
 
-// template.render('模板字符串', {'替换模版字符串'}, options);
+var fs = require('fs'); // node 中读取文件的模块
+
+var template = require('art-template'); // art-template 模板
+//template的使用方式template.render('模板字符串', {'替换模版字符串'});
 
 
-var tplStr;
-var fs = require('fs');
-fs.readFile('./ejs.html', (err, data) => {
-    if (err) {
-        return console.log('读取失败')
-    }
-    tplStr = data.toString();
-    var ret = template.render(tplStr, {
-        name: '魔神',
-        age: '18',
-        arr: ['sda', 'aaaaaa', 'dddddd']
-    });
-		res.end(ret);
-    console.log(ret);
+// 建立服务
+var server = http.createServer();
+
+
+server.on('request', (req, res) => {
+    fs.readFile('./index.html', (err, data) => {  // 读取 index.html 模板 将数据渲染
+        
+        if (err) {
+            return console.log('读取失败')
+        }
+        tplStr = data.toString();
+        var ret = template.render(tplStr, {
+            name: '哈哈哈',
+            age: '18',
+            arr: ['sda', 'aaaaaa', 'dddddd']
+        });
+
+        // 服务响应结束
+        res.end(ret);
+    })
 })
+
+server.listen('3000', '127.0.0.1', () => {
+    console.log('http://localhost:3000/')
+})
+
 ```
 
 
@@ -101,13 +121,34 @@ fs.readFile('./ejs.html', (err, data) => {
 
 > 如何实现头部、底部公共部分的处理
 
-> 自行查看 [模板继承]([https://aui.github.io/art-template/zh-cn/docs/syntax.html#%E6%A8%A1%E6%9D%BF%E7%BB%A7%E6%89%BF](https://aui.github.io/art-template/zh-cn/docs/syntax.html#模板继承))
+> 自行查看 [模板继承](https://aui.github.io/art-template/zh-cn/docs/syntax.html#%E6%A8%A1%E6%9D%BF%E7%BB%A7%E6%89%BF)
 
-> 可以继承 <style></style>、<div></div>、<script></script>
+> 可以继承 \<style>\</style> 、\<div>\</div>、\<script>\</script>
 
 
 
 #### 继承
+
+> header.html
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>头部</title>
+</head>
+<body>
+    
+    我是头部
+
+</body>
+</html>
+```
+
+
 
 > Index.html
 
@@ -153,7 +194,6 @@ fs.readFile('./ejs.html', (err, data) => {
         {{ include './header.html'}}
 
         <!-- 插槽 -->
-    
         {{ block 'content'}}
         <h1>我是默认的，如果不传过来自定义的内容就用我</h1>
         {{ /block}}
