@@ -147,7 +147,7 @@ $ npm install --save art-template  express-art-template
 /*
 在 express 中使用 art-template, 
 .html 后缀的文件使用 art-template 模板解析  
-默认 html文件 在 viws 文件夹中
+默认 html 文件 在 viws 文件夹中
 */
 
 // 第一个参数表示, 渲染以 .html 结尾的文件时, 使用模板引擎
@@ -161,7 +161,7 @@ server.set('views', path.join(__dirname, './htmls'))
 ### 3.3、使用
 
 ```html
-<!-- 新建文件夹views -->
+<!-- 新建文件夹 views -->
 <!-- 新建文件 views/index.html -->
 
 <h1>{{name}}</h1>
