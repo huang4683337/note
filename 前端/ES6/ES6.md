@@ -30,7 +30,7 @@ var list = [
 
 //接受一个函数作为参数
 var itemIndex = list.findIndex( (value, index)=>{
-  return value.id === 2;  // 当某个遍历项符合条件时 终止遍历 且返回对应的项，否则返回undefined
+  return value.id === 2;  // 当某个遍历项符合条件时 终止遍历 且返回对应的项的索引，否则返回undefined
 })
 
 console.log(itemIndex); // 1
