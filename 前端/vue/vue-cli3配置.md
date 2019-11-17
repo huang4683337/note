@@ -17,6 +17,8 @@ $ yarn global add @vue/cli
 - vue-cli 3 的包的名称从 `vue-cli`  改为 `@vue/cli` , 如果安装过3以下的版本你先通过`npm uninstall vue-cli -g`或 `yarn global remove vue-cli`卸载它
 - vue-cli 3 需要 `node8.9`以上的版本
 
+
+
 ## 2、创建项目
 
 ### 2-1  使用`vue ui`图形化界面

@@ -89,23 +89,22 @@ const Schema = mongoose.Schema;
 
 
 // 1- 链接数据库 test， test不存在时当我们添加第一条数据时会自动创建
-mongoose.connect('mongodb://localhost/test');
-
+mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true});
 
 // 2- 设计集合结构（表结构）
 // 添加约束required 是为了保证数据的完整性，避免产生脏数据
 let userSchema = new Schema({
-	userName: String, // 字段为：userName  类型为：string  未添加约束
-  name: {  // 字段为：name  类型为：String  默认值为：名字
-    type: String,
-    default: '名字',
-    required: true, // 必填
-  },
-  password: {
-    type: Number,
-    default: 111111,
-    enum:[0,1], // 枚举
-  }
+    userName: String, // 字段为：userName  类型为：string  未添加约束
+    name: {  // 字段为：name  类型为：String  默认值为：名字
+        type: String,
+        default: '名字',
+        required: true, // 必填
+    },
+    password: {
+        type: Number,
+        default: 111111,
+        enum: [0, 1], // 枚举
+    }
 })
 
 
@@ -119,7 +118,7 @@ mongoose.model 将一个架构发布为模型
 参数2: 自己定义的架构 blogSchema
 */
 
-const User = mongoose.model('User',	userSchema);
+const User = mongoose.model('User', userSchema);
 
 
 //4- 可以开始操作数据库了
