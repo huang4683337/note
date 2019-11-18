@@ -62,8 +62,8 @@ e.preventDefault ? e.preventDefault() : e.returnValue = false;
 事件执行的顺序问题，当事件发生时，从子元素向父元素触发 或者 从父元素向子元素触发的过程，就交租事件流。
 
 事件流的两种模式：
-	事件冒泡：从子元素向父元素触发的过程
-  事件捕获：从父元素向子元素触发的过程
+	事件冒泡：从子元素向父元素触发的过程	// button -> body -> html -> document -> window  
+  	事件捕获：从父元素向子元素触发的过程	// window -> document -> html -> body -> button
   
 当一个元素既有冒泡又有捕获时： 先捕获后冒泡
 ```
