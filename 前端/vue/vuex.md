@@ -4,7 +4,7 @@
 
 > 页面刚打开  `computed`  获取一次数据改变视图
 >
-> 用户操作视图—>通过  `dispatn`  发出请求 发送给  `action`  —> `Action`  通过 `store/context.commit`  向 `mutation`  提交一个异步请求 —>`mutation`  对数据进行处理-->数据改变—>`computed`   监听导数据改变   获取到数据-->视图改变
+> 用户操作视图 => 通过  `dispatn`  发出请求 发送给  `action`  => `Action`  通过 `store/context.commit`  向 `mutation`  提交一个异步请求 =>`mutation`  对数据进行处理 => 数据改 => `computed`   监听导数据改变   获取到数据 => 视图改变
 
 ![vuex1](/Users/mrhuang/Downloads/笔记图片/vuex1.png)
 
@@ -124,7 +124,7 @@ computed: {
 
 ### 2-4、store之getter
 
-> getter相当于时store的计算属性 ,getter返回的结果会根据对应的依赖缓存,
+> getter相当于是store的计算属性 ,getter返回的结果会根据对应的依赖缓存,
 >
 > 如果依赖不改变,那么就不会触发重新计算;
 >
@@ -151,7 +151,7 @@ const store = new Vuex.Store({
 ```javascript
 //组件中：
  
-在计算属性中通过 this.$store.getters.todoTrue 来访问getter中的属性
+// 在计算属性中通过 this.$store.getters.todoTrue 来访问getter中的属性
 computed: {
   todoTrue() {
     return this.$store.getters.todoTrue
@@ -286,9 +286,9 @@ methods: {
 ```javascript
 //html部分:
 <p @click="increment">按钮</p>
-<p @click="incrementBy(10)">按钮</p>
+<p @click="incrementBy(10)">按钮</p>  	 // 传递参数到 mutations
 <p @click="add">按钮</p>
-<p @click=“para(10)">按钮</p>
+<p @click=“para(10)">按钮</p>						 // 传递参数到 mutations 
 
 
 //js部分：

@@ -115,15 +115,22 @@ childNodes：得到元素节点和文本节点的集合 (回车会被当作文�
 ```js
 1、动态创建节点
 document.createElement('div');			// 创建一个元素节点 div
+document.createDocumentFragment()    //创建一个DOM片段
+document.createTextNode()   //创建一个文本节点
 
 2、添加元素节点
 父元素.appendChild('子元素节点');			// 将动态创建的 子元素 添加到 父元素的 最后
+
+3、插入节点
 父元素.insertBefore('要添加的子元素'，'参照节点');
 
-3、删除节点
+4、替换节点
+父元素.replaceChild();
+
+5、删除节点
 父元素.removeChild('子元素节点');
 
-4、节点克隆
+6、节点克隆
 需要克隆的节点.cloneNode(true);
 true(深克隆)：既克隆对象本身，又克隆对象内容。
 false(浅克隆)：只克隆对象本身
