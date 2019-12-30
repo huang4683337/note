@@ -34,7 +34,7 @@ div{
 @keyframes test{} /*test就是自定义的动画名称*/
 ```
 
-###`animation-timing-function`
+### `animation-timing-function`
 
 ```css
 /*时间函数*/
@@ -61,7 +61,7 @@ liner：匀速；ease：逐渐慢；ease-in：加速；ease-out：减速；ease-
 /*可以是整数、小数，不能是0和负数；infinite代表无限次*/
 ```
 
-###`animation-delay`
+### `animation-delay`
 
 ```css
 /*延迟时间*/
