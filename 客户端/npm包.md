@@ -50,6 +50,8 @@ $ npm uninstall 包的名字 --save  	# 删除某个包
 $ npm help 	#帮助文档
 
 $ npm publish   # 向npm发布自己的包  我们需要去npm官网创建自己的账号
+
+$ npm view 包的名字 versions	# 查看某个包所有版本
 ```
 
 

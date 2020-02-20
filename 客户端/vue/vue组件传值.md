@@ -28,7 +28,7 @@
 /* 父组件给子组件传递一个事件，子组件通过 this.$emit 来触发这个事件 */
 
 父组件：
-	<bbb @parent='parent'></bbb>
+	<bbb @inChild='parents'></bbb>
 	parents(val){
   	console.log(val);
   }
@@ -36,7 +36,7 @@
 子组件：
 	<div @click='bbb'>3131</div>
   bbb(){
-      this.$emit('parents',{bb:'我是子组件'}); //this.$emit('父组件传来的事件',需要给父的值)
+      this.$emit('inChild',{bb:'我是子组件'}); //this.$emit('父组件传来的事件',需要给父的值)
   }
 
 
@@ -56,18 +56,19 @@
 3 -- 传方法  props 接收方法
 /* 父组件将自己的某个方法当作属性传给子组件， 子组件去调用 */
 父组件：
-	<bbb :aaa="aaa"></bbb>
-	parents(val){
-  	console.log(val);
-  }
+<bbb :inChild="parents"></bbb>
+parents(val){
+  console.log(val);
+}
+
 子组件：
-	<div @click='bbb'>3131</div>
-	props:['aaa']
-  bbb(){
-    if(this.aaa){
-     	this.aaa('我是子组件'); 
-    }
+<div @click='handleClick'>3131</div>
+props:['inchild']
+handleClick(){
+  if(this.inchild){
+    this.inchild('我是子组件'); 
   }
+}
 ```
 
 
@@ -133,5 +134,28 @@ export default {
         })
     }
 }
+```
+
+
+
+## 解决子组件无法修改父组件传来的值
+
+```js
+// 父组件中
+{{value}}
+<bbb :inChild="value"></bbb>
+data(){
+    return{
+        value: '父组件啊'
+    }
+}
+
+// 子组件中
+<div @click="handleClick"><>
+props:['inChild'],
+handleClick() {
+    this.$emit('update:inChild', '我在子组件修改父组件穿过来的的值')
+}
+
 ```
 
