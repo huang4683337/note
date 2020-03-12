@@ -2,7 +2,7 @@
 
 ## 下载安装
 
-
+[nginx配置详解](https://blog.csdn.net/finnson/article/details/82461600)
 
 
 
@@ -35,7 +35,7 @@ sudo ssh 服务器外网ip
 ```bash
 cd /etc/nginx
 vim nginx.conf
-cd /etc/nginx/conf.d
+cd /etc/nginx/conf
 vim default.conf
 ```
 
