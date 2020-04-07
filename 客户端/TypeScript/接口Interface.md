@@ -18,4 +18,3 @@ function sayName(obj: data){
 }
 sayName({name:'名字'})
 ```
-
