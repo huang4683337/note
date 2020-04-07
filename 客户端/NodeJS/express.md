@@ -43,7 +43,7 @@ server.listen(3000, ()=>{
 
 
 
-###2.1、响应
+###  2.2、响应
 
 ```javascript
 server.get('/', (req, res)=>{
@@ -208,7 +208,7 @@ server.use(bodyParser.urlencoded({ extended: false }))
 server.use(bodyParser.json())
 ```
 
-==如果配置了路由文件的话，中间件的引入和配置要放在路由文件的导入之前，否则在路由中访问req.body为undefined==
+== 如果配置了路由文件的话，中间件的引入和配置要放在路由文件的导入之前，否则在路由中访问req.body为undefined ==
 
 ### 4.4 使用
 
@@ -228,7 +228,7 @@ server.use(bodyParser.json())
 
 
 ```javascript
-// rea.body 就能拿到 form 表单提交的数据
+// req.body 就能拿到 form 表单提交的数据
 
 server.post('/post', (req, res)=>{
   console.log(req.body);
