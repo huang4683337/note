@@ -52,7 +52,7 @@ $ vim cert.key	# 将 SSL 对应的 .key 后缀内容粘贴进去
 + 修改 nginx 配置文件
 
 ```shell
-# 添加一个新的 server
+# 添加一个新的 server https 一般都监听443
 server {
         listen       443 ssl http2;
         root         /var/www/hexo;     # 指向git用户的个人博客存放目录
