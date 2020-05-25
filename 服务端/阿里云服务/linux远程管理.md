@@ -1,8 +1,8 @@
 # 远程管理
 
-+ putty  只有命令行窗口
-+ SSHSecureShellClient  集成两者的功能
-+ WinSCP  可以直接将本地文件拖入linux , 或将linux文件拖入本地
++ `putty`  只有命令行窗口
++ `SSHSecureShellClient`  集成两者的功能
++ `WinSCP`  可以直接将本地文件拖入 `linux` , 或将 `linux` 文件拖入本地
 
 
 

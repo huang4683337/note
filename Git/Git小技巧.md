@@ -43,3 +43,12 @@ $ ping devops.wh.gsafety.com;		# 172.18.7.24
 # 问题解决
 ```
 
+
+
+## git 改变远程仓库地址
+
+```shell
+$ git remote -v		#	查看远程仓库地址
+$ git remote set-url origin	http:xx.xx.xx		# 设置新的远程地址
+```
+
