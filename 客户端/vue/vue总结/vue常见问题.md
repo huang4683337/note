@@ -36,3 +36,29 @@ config文件中
 */
 ```
 
+
+
+
+
+## input 输入框校验
+
+```html
+<el-input v-model="money" @input.native="input"></el-input>
+```
+
+```js
+input(e){
+	let value = e.target.value;	// 用于获取到 input 值改变时的值
+  
+  // 只能输入数字和小数点后两位
+  e.target.value = value.match(/^d*(\.?\d{0,2})/g)[0] || null;
+}
+```
+
+==注意：==
+
++ 在有的版本中的 vue 中，事件需要添加 `.native` 修饰符
+
++ 想要获取到输入框数据可以通过 `e.target.value` 来得到
+
+  
