@@ -21,7 +21,7 @@ DocumentFragment  // 文档碎片 （高效批量更新多个节点）,不会跟
 
 
 
-### DocumentFragment
+## DocumentFragment
 
 ```html
 <ul id='ul'>
@@ -95,7 +95,9 @@ vue数据代理实现流程：
 
 + getter / setter 去操作 data中对应的属性数据
 
-**案例演示**
+
+
+### 案例演示
 
 ```js
 function Vue(obj){
@@ -106,31 +108,51 @@ var vm = new Vue({name:'名字'});
 console.log(vm.obj.name); // 正常我们使用实例中的数据时 应该 vm.obj.name
 ```
 
+
+
+**实现代理**
+
 ```js
-// 实现数据代理
-function Vue(obj){
-    var data = this.obj = obj;
-    Object.keys(data).forEach(key=>{
-        // 给Vue实例vm添加与obj属性名一一对应属性名及其描述，实现vm.obj.name => vm.name
-        // 相当于将 vm.obj 的数据拷贝一份给了 vm ==> vm.obj = {a:1}, vm = {a:1}
-        Object.defineProperty(this,key,{
-            get: function gett(){
-                return data[key];  // return 后结果相当于 => get: data[key]
-            },
-            set: function sett(val){
-                return data[key] = val;
-            }
-        })
-    })
+let vm = {};
+let data = {
+    name: '名字',
+    other: {
+        age: 18
+    }
 }
 
-var objData = {name:'名字',age:'18'};
-var vm = new Vue(objData);
+// 得到 data 中的每个 key
+Object.keys(data).forEach(key => {
+    defineReactive(key)
+})
 
-console.log(vm.name,vm.age);	// 获取数据 => 名字 18
-vm.name = '1';  // 修改数据
-console.log(objData); // {name:'1',age:'18'}
+// 将 data 中的 key 代理到 vm
+function defineReactive(key) {
+    Object.defineProperty(vm, key, {
+        configurable: false, // 是否可以重新定义
+        enumerable: true,   // 是否可以枚举
+        // 通过 vm.xxx 读取属性值时调用，从data中获取对应的属性值返回，代理读取操作
+        get: function proxyGetter() {
+            return data[key];
+        },
+        // 通过 vm.xxx = value 时，value将被保存到data对应到属性上， 代理写入操作
+        set: function proxySetter(newVal) {
+            data[key] = newVal;
+        }
+    });
+}
+
+
+console.log(data)
+console.log(vm)
+
+
+vm.name= 'ss';
+console.log(data)
+console.log(vm)
 ```
+
+
 
 ## 模板解析
 
@@ -200,25 +222,33 @@ console.log(objData); // {name:'1',age:'18'}
 ### Observer 观察者
 
 ```js
-// 对 data 中的每个属性 添加 get / set, 也就是上面提到的 数据代理 模式
+// 用于建立 watcher 和 dep 之间的关系
 
 /**
  * 
  * @param {*} data  // vue 中的 data 属性
  * @param {*} vm    // vue 实例  
  */
-function Observer(data, vm) {
+function _proxyData(data, vm) {
     Object.keys(data).forEach(key => {
-        Object.defineProperty(vm, key, {
-            get: function gett() {
-                return data[key];  // return 后结果相当于 => get: data[key]
-            },
-            set: function sett(val) {
-                return data[key] = val;
-            }
-        })
+        this.defineReactive(vm, key)
     })
 }
+
+Observer.prototype = {
+    defineReactive: function(data,){
+        Observer(data[key]);	// 递归所有属性
+        Object.defineProperty(vm, key, {
+        	get: function gett() {
+            	return data[key];  // return 后结果相当于 => get: data[key]
+          	},
+           	set: function sett(val) {
+           		return data[key] = val;
+           	}
+       	})
+    }
+}
+
 ```
 
 
@@ -229,16 +259,21 @@ function Observer(data, vm) {
 
   初始化时，对 data 进行数据劫持前一步创建的。
 
+  ```js
+  var dep = new Dep();
+  Object.defineProperty();
+  ```
+
 + dep 实例的个数
 
   一个 dep 对应 data 中的一个属性（对 data 中的所有属性进行一一对应）
 
   ```js
   data:{
-  	name: "名字",	  => name 会产生一个 dep
+  	name: "名字",	  			=> name 会产生一个 dep
   	a:{						 => a 会产生一个 dep
-  		a1:"a1",			=> a1 会产生一个 dep
-  		b1:"b1"				=> a2 会产生一个 dep
+  		a1:"a1",			 => a1 会产生一个 dep
+  		b1:"b1"				 => b1 会产生一个 dep
   	}
   }
   ```
@@ -248,10 +283,10 @@ function Observer(data, vm) {
   ```js
   /*
   id：当前 dep 的标识
-  	subs: 
-  		存放每个表达式对应的 watcher => 因为同一个属性可能在多个表达式中使用，一个表达式对应一个 watcher;
-  		<div>{{name}}</div>			=> div 中的 {{name}} 会产生一个 watcher
-  		<span>{{name}}</span>		=> span 中的 {{name}} 会产生一个 watcher
+  subs: 
+  	存放每个表达式对应的 watcher	  => 因为同一个属性可能在多个表达式中使用，一个表达式对应一个 watcher;
+  	<div>{{name}}</div>			 => div 中的 {{name}} 会产生一个 watcher
+  	<span>{{name}}</span>		 => span 中的 {{name}} 会产生一个 watcher
   */
   ```
 
@@ -262,7 +297,7 @@ function Observer(data, vm) {
   var id = 0;
   
   function Dep() {
-  		this.id = id++;
+  	this.id = id++;
       this.subs = [];
   }
   
@@ -274,8 +309,8 @@ function Observer(data, vm) {
           this.subs.push(watcher);
       },
   
-    	
-      notify() {
+    	// 遍历所有的 watcher， 通知 watcher 更新
+      notify:function() {
           this.subs.forEach(function (sub) {
               sub.update();
           })
@@ -283,10 +318,12 @@ function Observer(data, vm) {
   
     	// 建立 dep 和 watcher 关系
     	setMessage: function(){
-        // 调用 watcher 的添加方法
+       	// 调用 watcher 的添加方法
     		Dep.target.addDep(this);
-  		}
+  	}
   }
+  
+  Dep.target = null;
   ```
 
 
@@ -325,9 +362,22 @@ function Observer(data, vm) {
 + 实现一个 watcher
 
   ```js
+  function Watcher(vm, expOrFn, cb){
+      this.cb = cb;	// 更新页面的回调
+    this.vm = vm;
+      this.expOrFn = expOrFn;	// 当前 watcher 对应的 data 中的属性
+  }
   
+  Watcher.prototype= {
+      constructor: Watcher;
+      relationDeP: function(){
+          Dep.target = this;	// 将当前 watcher 存在一个全局变量中，将 watcher 添加到 dep 时使用
+          let value = this.vm.data[this.expOrFn];	// 强制触发 getter => getter 中有 dep 
+          Dep.target = null;	// 和 dep 建立关系后清空
+      }
+  }
   ```
-
+  
   
 
 ### 总结
@@ -368,7 +418,7 @@ function Observer(data, vm) {
   在模板解析时，需要将模板中的属性换成 data 中属性对应的值, 此时就会触发属性对应的 getter	// 调用当前表达式所用属性的 getter
   
   addDep: function(dep){
-    this.depIds[dep.id] = dep;	// 将 dep 添加到 watcher
+    // this.depIds[dep.id] = dep;	// 将 dep 添加到 watcher
     dep.addWatcher(this);	// 将 watcher 添加到 dep
   }
   
@@ -410,3 +460,19 @@ function Observer(data, vm) {
   ```
 
   
+
+## 实现一个Vue
+
+```js
+function Vue(options) {
+    this.$options || {};
+    var data = this._data = options.data;
+
+    // 实现数据代理
+    // ...
+
+    // 创建一个观察者
+    new Observer(data, this);
+}
+```
+
