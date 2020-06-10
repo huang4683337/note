@@ -3,7 +3,10 @@
 | 功能                   | 命令              |
 | ---------------------- | ----------------- |
 | 创建文件夹             | mkdir  文件夹名称 |
+| 删除文件夹             |                   |
 | 创建文件               | touch  文件名称   |
+| 删除文件               | rm 文件名称       |
+| 查看文件               | cat 文件名称      |
 | 进入文件夹             | cd 文件夹名称     |
 | 查看当前目录下的文件   | ls                |
 | 查看当前文件夹所在路径 | pwd               |
@@ -40,6 +43,7 @@
 | 显示隐藏文件 .git      | ls -ah                              |
 | 添加远程仓库地址到本地 | git remote add origin  远程仓库地址 |
 | 查看远程仓库地址       | git remote -v                       |
+| 切换远程仓库地址       | git remote set-url origin url       |
 
 
 
@@ -68,10 +72,12 @@
 
 ## 分支管理
 
-| 管理                 | 功能                |
-| -------------------- | ------------------- |
-| 创建分支 dev         | git branch dev      |
-| 切换到分支 dev       | git checkout dev    |
-| 创建并切换分支到 dev | git checkout -b dev |
-|                      |                     |
+| 管理                                 | 命令                |
+| ------------------------------------ | ------------------- |
+| 创建分支 dev                         | git branch dev      |
+| 切换到分支 dev                       | git checkout dev    |
+| 创建并切换分支到 dev                 | git checkout -b dev |
+| 查看当前分支；当前分支前会以星号标注 | git branch          |
+| 将dev分支合并到当前所在分支上        | git merge dev       |
+| 删除分支dev                          | git branch -d dev   |
 
