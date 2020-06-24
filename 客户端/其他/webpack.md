@@ -57,3 +57,50 @@ npm i webpack --save-dev		# 安装到你的项目目录
 
 ## 开始使用 WebPack
 
+### 简单使用
+
++ webpack_project 下创建 index.html
+
+  ```html
+  <!DOCTYPE html>
+  <html lang="zh-cn">
+  
+  <head>
+      <meta charset="UTF-8">
+      <title>webpack</title>
+  </head>
+  
+  <body>
+  
+      <script src="dist/bundle.js"></script>
+      
+  </body>
+  
+  </html>
+  ```
+
++ src 下创建 bar.js
+
+  ```js
+  export default function bar(){
+      document.body.innerText = 'hello world'
+  }
+  ```
+
++ src 下创建 mian.js 
+
+  ```js
+  import bar from './bar'
+  
+  bar();
+  ```
+
++ 编译打包
+
+  ```shell
+  # 非全局安装的 webpack
+  $ node_modules/.bin/webpack ./src/main.js -o ./dist/bundle.js
+  ```
+
+  
+
