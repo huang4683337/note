@@ -12,10 +12,15 @@ vue更新部分：数据绑定
 
 ```js
 Array.prototype.split.call(li); // 将伪数组转为真实数组
+
 node.nodeType	// 获得节点类型 元素节点1、属性节点2、文本节点3
+
 Object.definedProperty(obj,properName,{});	// 给对象添加属性（指定描述）
+
 Object.keys(obj); // 得到对象自身可枚举属性组成的数组
+
 obj.hasOwnProperty(prop);  // 判断 prop 是否是 obj 自身的属性
+
 DocumentFragment  // 文档碎片 （高效批量更新多个节点）,不会跟页面进行关联，改变文档碎片中元素不会改变页面
 ```
 
@@ -43,7 +48,7 @@ const fragment = document.createDocumentFragment();
 // 2- 取出 ul 中的 li
 while (ul.firstChild) {     // 如果ul下的第一个子节点存在
     fragment.appendChild(ul.firstChild);    
-    // 因为没个节点都只能存在一个父节点，那么将节点插入fragment中后，ul中对应的第一个子节点就会消失
+    // 因为每个节点都只能存在一个父节点，那么将节点插入fragment中后，ul中对应的第一个子节点就会消失
 }
 
 // 3- 更新 fragment 节点中的 li
