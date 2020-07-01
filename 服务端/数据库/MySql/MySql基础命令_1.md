@@ -1,7 +1,7 @@
 ## Mac 如何登陆数据库
 
 ```shell
-$ mysql -u root -p kaiwen...0  #登陆  
+$ mysql -u root -p  #登陆  
 
 # 密码：kaiwen...0
 
