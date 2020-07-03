@@ -17,7 +17,7 @@
 ```
 
 ```css
-.css{
+.div{
   height:200px;
   overflow:hidden;
 }
