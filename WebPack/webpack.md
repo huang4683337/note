@@ -187,18 +187,19 @@ devtool: 'eval-source-map',
 
 ```shell
 # 安装包
-$ npm install --save-dev webpack-dev-server	
+$ npm install webpack-dev-server	
 
 # 需要在 webpack.config.js 中配置 devServer 属性
 ```
 
 
 
-| devServer配置属性 | 功能描述                                                     |
-| ----------------- | ------------------------------------------------------------ |
-| contentBase       | 默认是为根文件提供本地服务，想要为某个文件夹提供服务需要将值设置为文件夹路径 |
-| port              | 监听端口，默认问 8080                                        |
-| inline            | 值为`true`时，源文件改变会自动刷新页面                       |
+| devServer配置属性  | 功能描述                                                     |
+| ------------------ | ------------------------------------------------------------ |
+| contentBase        | 默认是为根文件提供本地服务，想要为某个文件夹提供服务需要将值设置为文件夹路径 |
+| port               | 监听端口，默认问 8080                                        |
+| inline             | 值为`true`时，源文件改变会自动刷新页面                       |
+| historyApiFallback | 在开发单页应用时非常有用，它依赖于HTML5 history API，如果设置为`true`，所有的跳转将指向index.html |
 
 
 
