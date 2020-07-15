@@ -190,6 +190,21 @@ devtool: 'eval-source-map',
 $ npm install webpack-dev-server	
 
 # 需要在 webpack.config.js 中配置 devServer 属性
+devServer:{
+    contentBase: 'index.html',   # 本地服务加载页面所在的目录 或者文件
+    historyApiFallback: true,    # 路由跳转
+    inline: true,   # 实时刷新
+}
+
+# 需要在 package.json 中添加 dev 属性
+"scripts": {
+  "start": "webpack",
+  "dev": "webpack-dev-server --open"
+},
+```
+
+```shell
+$ npm run dev		# 启动本地服务
 ```
 
 
@@ -203,7 +218,5 @@ $ npm install webpack-dev-server
 
 
 
-
-
-
+#### Loaders
 
