@@ -369,7 +369,7 @@ Observer.prototype = {
   ```js
   function Watcher(vm, expOrFn, cb){
       this.cb = cb;	// 更新页面的回调
-    this.vm = vm;
+    	this.vm = vm;
       this.expOrFn = expOrFn;	// 当前 watcher 对应的 data 中的属性
   }
   

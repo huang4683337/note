@@ -1,4 +1,4 @@
-[参考地址](https://www.jianshu.com/p/42e11515c10f)
+[参考地址](https://www.jianshu.com/p/5b69a7e61fe4)
 
 
 
@@ -181,6 +181,13 @@ npm i webpack --save-dev		# 安装到你的项目目录
 devtool: 'eval-source-map',
 ```
 
+| devtool属性                  | 功能描述                                                     |
+| ---------------------------- | ------------------------------------------------------------ |
+| source-map                   | 在一个单独的文件中产生一个完整且功能完全的文件。<br>这个文件具有最好的source map，但是它会减慢打包速度 |
+| cheap-module-source-map      | 在一个单独的文件中生成一个不带列映射的map，<br/>不带列映射提高了打包速度，<br/>但是也使得浏览器开发者工具只能对应到具体的行，<br/>不能对应到具体的列（符号），会对调试造成不便； |
+| eval-source-map              | 打包源文件模块，在同一个文件中生成干净的完整的source map  。<br/>这个选项可以在不影响构建速度的前提下生成完整的sourcemap  ，<br/>但是对打包后输出的JS文件的执行具有性能和安全的隐患。<br/>在开发阶段这是一个非常好的选项，在生产阶段则一定不要启用这个选项 |
+| cheap-module-eval-source-map | 这是在打包文件时最快的生成source map的方法，<br/>生成的Source Map会和打包后的 JavaScript 文件同行显示，<br/>没有列映射，和 eval-source-map 选项具有相似的缺点 |
+
 
 
 #### 构建本地服务
@@ -220,3 +227,4 @@ $ npm run dev		# 启动本地服务
 
 #### Loaders
 
+loaders 是 webpack 核心功能之一，通过使用不同的 loaders， webpack 有能力调用外部的
