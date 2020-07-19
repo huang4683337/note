@@ -4,7 +4,7 @@
 # 初始化 npm
 $ npm init -y 
 
-# 安装 webpack 在 4 版本中 webpack 需要安装一下两个依赖
+# 安装 webpack 在 4 版本中 webpack 需要安装以下两个依赖
 $ npm i webpack webpack-cli
 ```
 
@@ -18,7 +18,8 @@ $ npm i webpack webpack-cli
 零配置的意思就是支持安装即用，不要进行多余的配置
 
 ```shell
-# 新建文件夹 src 目录
+# 新建一个文件夹 webpack4
+# webpack4 下新建文件夹 src 目录
 # src 下 新建文件 index.js 写入以下内容 console.log('hello world')
 
 # 打包文件， npx：是 webpack 新生成的一个语法
@@ -58,7 +59,7 @@ You can also set it to 'none' to disable any default behavior. Learn more: https
 ## 手动配置 webpack
 
 ```js
-// 当前工程的根目录下新建文件 webpack.config.js
+// 当前工程的根目录（webpack4）下新建文件 webpack.config.js
 
 let path = require('path'); // node 内置模块，用于路径处理
 
