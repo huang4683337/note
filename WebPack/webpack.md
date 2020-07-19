@@ -1,4 +1,4 @@
-[参考地址](https://www.jianshu.com/p/5b69a7e61fe4)
+[参考地址](https://segmentfault.com/a/1190000006178770)
 
 
 
@@ -227,4 +227,124 @@ $ npm run dev		# 启动本地服务
 
 #### Loaders
 
-loaders 是 webpack 核心功能之一，通过使用不同的 loaders， webpack 有能力调用外部的
+loaders 是 webpack 核心功能之一，通过使用不同的 loaders， webpack 有能力调用外部的脚本或者工具，实现对不同格式文件的处理。
+
+比如说分析转换 scss、css，或者将 es6、es7 转换成 es5，将 react 的 jsx 转化成 es5 等
+
++ 安装 loaders
+
+  ```shell
+  $ 
+  ```
+
++ 在 `webpack.config.js`  中的 `modules` 属性下配置
+
+  | 属性            | 功能描述                                                     |
+  | --------------- | ------------------------------------------------------------ |
+  | test            | 一个用以匹配loaders所处理文件的拓展名的正则表达式（必须）    |
+  | loader          | loader的名称（必须）                                         |
+  | include/exclude | 手动添加必须处理的文件（文件夹）或屏蔽不需要处理的文件（文件夹）（可选） |
+  | query           | 为loaders提供额外的设置选项（可选）                          |
+
+
+
+#### Babel
+
+`babel` 是一个编译 `javaScript` 的平台，他的强大之处在于通过编译可以达到以下目的：
+
++ 让你能使用最新的 JavaScript 代码（ES6，ES7...），而不用管新标准是否被当前使用的浏览器完全支持；
++ 让你能使用基于 JavaScript 进行了拓展的语言，比如 React 的 JSX
+
+
+
+**使用Babel**
+
++ 安装 babel
+
+  ```shell
+  $ npm install babel-core babel-loader babel-perset-es2015 
+  # babel 其实是几个模块化的包，核心功能位于 babel-core 的 npm 包中
+  ```
+
++ `webpack.config.js` 添加 `modules` 属性
+
+  ```js
+  module: {
+      rules: [
+          {
+              test: /(\.jsx|\.js)$/,
+              use: {
+                  loader: "babel-loader",
+                  options: {
+                      presets: ["es2015", "react"]
+                  }
+              },
+              exclude: /node_modules/
+          }
+      ]
+  }
+  ```
+
+
+
+#### css
+
+webpack提供两个工具处理样式表，`css-loader``style-loader`，二者处理的任务不同，`css-loader`使你能够使用类似`@import` 和 `url(...)`的方法实现 `require()`的功能,将所有的计算后的样式加入页面中，二者组合在一起使你能够把样式表嵌入webpack打包后的JS文件中
+
++ 安装 
+
+  ```shell
+  $ npm install style-loader css-loader
+  ```
+  
++ webpack.config.js => module => rules 中添加
+
+  ```js
+  {
+      test: /\.css$/,
+      use: [
+          {
+              loader: "style-loader"
+          }, {
+              loader: "css-loader"
+          }
+      ]
+  }
+  ```
+
+
+
+
+
+#### Plugins 插件
+
+插件（Plugins）是用来拓展Webpack功能的，它们会在整个构建过程中生效，执行相关的任务。
+Loaders和Plugins常常被弄混，但是他们其实是完全不同的东西，可以这么来说，loaders是在打包构建过程中用来处理源文件的（JSX，Scss，Less..），一次处理一个，插件并不直接操作单个文件，它直接对整个构建过程其作用。
+
+Webpack有很多内置插件，同时也有很多第三方插件，可以让我们完成更加丰富的功能。
+
+
+
+
+
+#### HtmlWebpackPlugin
+
+这这个插件的作用是依据一个简单的 `index.html` 模板，生成一个自动引用你打包后的 JS 文件的新的 `index.html` 。这在每次生成的 js 文件名称不同时非常有用（比如添加了`hash`值）
+
+#### Hot Module Replacement
+
+Hot Module Replacement（HMR）也是webpack里很有用的一个插件，它允许你在修改组件代码后，自动刷新实时预览修改后的效果。
+
+在webpack中实现HMR也很简单，只需要做两项配置
+
+在webpack配置文件中添加HMR插件；
+在Webpack Dev Server中添加“hot”参数；
+不过配置完这些后，JS模块其实还是不能自动热加载的，还需要在你的JS模块中执行一个Webpack提供的API才能实现热加载，虽然这个API不难使用，但是如果是React模块，使用我们已经熟悉的Babel可以更方便的实现功能热加载。
+
+整理下我们的思路，具体实现方法如下
+
+-  `Babel`和`webpack`是独立的工具
+- 二者可以一起工作
+- 二者都可以通过插件拓展功能
+- HMR是一个webpack插件，它让你能浏览器中实时观察模块修改后的效果，但是如果你想让它工作，需要对模块进行额外的配额；
+- Babel有一个叫做`react-transform-hrm`的插件，可以在不对React模块进行额外的配置的前提下让HMR正常工作；
