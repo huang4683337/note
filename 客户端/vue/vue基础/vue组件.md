@@ -20,7 +20,7 @@ console.log( createObj()==createObj() ); // false
 
 
 
-## keep-alive
+## keep-alive 组件缓存
 
 `keep-alive` 是 Vue 内置的一个组件，可以使被包含的组件保留状态，或避免重新渲染
 
