@@ -4,7 +4,7 @@
 # 初始化 npm
 $ npm init -y 
 
-# 安装 webpack 在 4 版本中 webpack 需要安装以下两个依赖
+# 安装 webpack, 在 4 版本中 webpack 需要安装以下两个依赖
 $ npm i webpack webpack-cli
 ```
 
@@ -35,7 +35,8 @@ $ npx webpack
 
 
 ```js
-// 推荐 vscode 的一个插件，可以直接执行node 代码
+// 推荐 vscode 的一个插件，可以直接执行node 代码 
+code run
 ```
 
 

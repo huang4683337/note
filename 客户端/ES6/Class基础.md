@@ -96,10 +96,27 @@ class 定义的类，想要执行必须new。
 
 ### Generator 方法
 
-如果某个方法之前加上星号（`*`），就表示该方法是一个 Generator 函数
+一般情况下函数只要开始执行，除非 return 或者执行完毕，除此之外是不会停止的。
+
+Generator 函数是ES6提供的一种异步编程解决方案，可以打断函数的执行
+
++ 如果某个方法之前加上星号（`*`），就表示该方法是一个 Generator 函数
++ 函数体内使用 yield 表达式，定义不同的内部状态 （可以有多个yield）
++ 直接调用 Generator函数并不会执行，也不会返回运行结果，而是返回一个遍历器对象（Iterator Object）
++ 次调用遍历器对象的next方法，遍历 Generator函数内部的每一个状态
 
 ```js
+function * generator(){
+  yield 'status one'         // yield 表达式是暂停执行的标记  
+  return 'hello world'
+}
 
+let g = generator();
+
+console.log('直接执行 Generator 函数，得到一个遍历器',g) // Object [Generator] {}
+
+console.log(g.next())	// status one
+console.log(g.next()) // hello world
 ```
 
 
