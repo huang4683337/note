@@ -165,9 +165,9 @@ build.js 简化后的代码
 
 ### package.json 
 
-可以在 `package.json `  中配置一些脚本， 通过这些脚本来执行 `webpack`
+可以在 `package.json `  中的 `scripts` 中配置一些脚本， 通过这些脚本来执行 `webpack`
 
-在 package.json 添加 scripts 属性， 在 scripts 属性中配置 webpack 脚本
+在 `package.json` 添加 `scripts` 属性， 在 `scripts` 属性中配置 `webpack` 脚本
 
 ```json
 /*
@@ -212,4 +212,112 @@ $ npm run a -- --config a.js
 # 如果我们再加一个 -- 就会把 '-- config'  以及后面的一起拼成一个字符串
 # 在脚本中运行时就会转化成 "a":"webpack --config a.js",
 ```
+
+
+
+## 构建本地服务
+
+```shell
+# 安装
+$ npm i webpack-dev-server -D
+
+# 开启服务
+$ npx webpack-dev-server
+
+# 并不是生成一个打包文件，而是在内存中生成打包
+
+# 浏览器打开之后会看到以下界面
+```
+
+![](https://hkw-img.oss-cn-hongkong.aliyuncs.com/webpack4/webpack%E6%9E%84%E5%BB%BA%E6%9C%AC%E5%9C%B0%E6%9C%8D%E5%8A%A11.png)
+
+
+
++ 当然我们也可以配置相关的本地服务，首先在 `package.json` 的 `scripts` 中配置开启本地服务的命令
+
+  ```json
+  "scripts": {
+    "dev": "webpack-dev-server"
+  },
+  
+  /*
+  dev: npm 通过 npm run dev 命令来执行 webpack 脚本
+  webpacl-dev-server： webpack 开启本地服务所要执行的命令
+  */
+  ```
+
++ 然后在 `webpack.config.js`  中添加 `devserver`  属性
+
+  ```json
+  devServer: { // 开发环境配置
+      port: 3000,  // 端口号
+      progress: true,  // 进度条
+      contentBase: './dist',  // 指定在哪个目录下开启服务, 默认访问 index.html
+      compress: true, // 启动 Gzip 压缩
+  }
+  ```
+
++ `npm run dev`
+
+  ```js
+  // 在 src 下新建文件 index.html index.js
+  // 在 index.html 中引入index.js
+  // npm run dev
+  // 浏览器输入 localhost:3000
+  // 可以看到相应的内容
+  ```
+
+
+
+## plugin
+
+在开发中我们不可能像上面一样每新建一个 js 就在 html 中引入一次。
+
+为了解决这个问题我们需要借助一些插件来实现在 html 中自动引入 js、css
+
++ 安装一个能将 css、js 自动引入 html 的插件
+
+  ```shell
+  $ npm i html-webpack-plugin -D
+  ```
+
++ 引入插件
+
+  ```js
+  // webpack.config.js 中
+  let HtmlWebpackPlugin = require('html-webpack-plugin');
+  ```
+
++ 使用插件
+
+  ```js
+  // webpack.config.js 中添加属性 plugins
+  plugins: [ // 数组 存放所有 webpack 插件
+      new HtmlWebpackPlugin({
+          template: './src/index.html',  // 以哪个文件作文模板
+          filename: 'index.html', // 希望模板打包后的文件名叫什么
+      })
+  ]
+  ```
+
++ 在 src/index.js 中添加内容
+
+  ```js
+  console.log('hello world')
+  
+  document.body.innerText = 'hello world'
+  document.body.style.background = "red"
+  ```
+
++ 运行查看
+
+  ```shell
+  $ npm run dev
+  
+  # 浏览器输入 localhost:3000
+  ```
+
+  ![](https://hkw-img.oss-cn-hongkong.aliyuncs.com/webpack4/webpack-plugin1.png)
+
+
 

@@ -32,6 +32,8 @@ git repository: 当前包在 gitHub 的地址
 keywords: 
 author: 作者
 license: 开源许可证
+scripts: 配置 webpack 运行脚本
+devDependencies： 开发环境所用插件
 ```
 
 
