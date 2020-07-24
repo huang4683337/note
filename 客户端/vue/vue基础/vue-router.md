@@ -1,4 +1,4 @@
-# vue-router
+
 
 ## 1、路由传参
 
@@ -97,6 +97,58 @@ data() {
 
 ### 3-1 路由中使用 history
 
++ 在 `new VueRouter()` 中开启 `history` 模式
+
+  ```js
+  const router = new VueRouter({
+    mode: 'history',	// 开启 hisroty 模式
+    routes: [...]
+  })
+  ```
+
++ `nginx` 配置
+
+  ```shell
+  location / {
+    try_files $uri $uri/ /index.html;
+  }
+  ```
+
++ 如果项目通过 `ngixn` 代理来访问
+
+  ```shell
+  # 1- 项目中配置
+  const router = new VueRouter({
+    mode: 'history',	# 开启 hisroty 模式
+    base: 'gsafetyWeb/iams/',	# nginx 代理地址
+    routes: [...]
+  })
+  
+  # 打包后的文件放在 D:/gsafetyWeb/iams
+  |-- D:/
+    |--  gsafetyWeb
+    	|-- iams
+    		|-- static
+    		|-- index.html
+    		|-- ...
+    
+  # 2 - nginx 配置 root
+  root	D:/;
+    
+    
+  # 3- nginx 配置地址代理
+  location /gsafetyWeb/iams/ {
+    try_files $uri $uri/ /gsafetyWeb/iams/index.html;
+  }
+  
+  # 注意：
+  #		loaction 的代理地址必须同开发环境中 'process.env.baseurl' 的值一样
+  #		在 new VueRouter() 中的 base 属性值必须和 loaction 的代理地址一样
+  #		try_files $uri $uri/ 后面的地址以 root 为参照，并最终指向 index.html
+  ```
+
+  
+
 ### 3-2 history.pushState()
 
 > 属于H5的一个方法， 存在浏览器兼容问题，并且需要后台配合配置nginx。
@@ -106,7 +158,7 @@ data() {
 浏览器不刷新的情况下改变url地址，因为正常情况下改变url浏览器就会刷新一次页面。
 
 ```js
-history.pushState(stateObject, tit, url);	// 在浏览器添加一个新的历史纪律
+history.pushState(stateObject, tit, url);	// 在浏览器添加一个新的历史记录
 
 //	stateObject : 当前页面的状态 {status:1}
 //	tit : 标题
