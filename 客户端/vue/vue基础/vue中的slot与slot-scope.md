@@ -74,7 +74,7 @@ slot也就是大家俗称的'插槽'。是组件的一块==HTML模板==，这块
 
 > 注意：为了方便观察，父组件中背景色为红色，子组件背景色为蓝色
 
-![效果图](/Users/mrhuang/Downloads/笔记图片/vue/slot_1.jpg)
+![效果图](https://hkw-img.oss-cn-hongkong.aliyuncs.com/vue/slot1.png)
 
 
 
@@ -119,7 +119,7 @@ slot也就是大家俗称的'插槽'。是组件的一块==HTML模板==，这块
 </template>
 ```
 
-![效果图](/Users/mrhuang/Downloads/笔记图片/vue/solot2.png)
+![效果图](https://hkw-img.oss-cn-hongkong.aliyuncs.com/vue/solot2.png)
 
 
 

@@ -122,13 +122,3 @@ $ firewall-cmd --zone=public --add-port=443/tcp --permanent	# 防火墙开启 44
 $ firewall-cmd --reload	# 重启防火墙
 ```
 
-
-
-##  windows
-
-```shell
-# 想要通过 nginx 访问 windows 下的某个目录
-
-root		D:/dist;
-```
-

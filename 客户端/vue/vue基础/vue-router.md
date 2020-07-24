@@ -167,7 +167,7 @@ history.pushState(stateObject, tit, url);	// 在浏览器添加一个新的历�
 
 例如我们现在打开任何一个网站，F12打开控制台输入 `window.history` 。红色框的三个，其中length代表浏览记录队列长度，因为页面是刚打开的所以值是1； state是我们通过pushState添加记录所代表的第一个属性；
 
-![](/Users/mrhuang/Downloads/笔记图片/vue/vueRouter_history.png)
+![](https://hkw-img.oss-cn-hongkong.aliyuncs.com/vue/vueRouter_history.png)
 
 
 
@@ -179,7 +179,7 @@ history.pushState(stateObject, tit, url);	// 在浏览器添加一个新的历�
 window.history.pushState({status: 0} ,'' ,'?data=1');
 ```
 
-![](/Users/mrhuang/Downloads/笔记图片/vue/vueRouter_history1.png)
+![](https://hkw-img.oss-cn-hongkong.aliyuncs.com/vue/vueRouter_history1.png)
 
 ### 3-3 popstate 监听浏览器的前进和后退
 
@@ -251,3 +251,4 @@ class Router {
 ## 4、hash 路由方法
 
 > 当 哈希值发生改变时，hashchange 监听到 url 的变化， 从而进行路由跳转。
+

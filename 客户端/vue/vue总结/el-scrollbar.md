@@ -41,4 +41,5 @@ ul{
 }
 ```
 
-![内外盒子图](/Users/mrhuang/Downloads/笔记图片/el-scrollbar.png)
+![内外盒子图](https://hkw-img.oss-cn-hongkong.aliyuncs.com/vue/el-scrollbar.png)
+
