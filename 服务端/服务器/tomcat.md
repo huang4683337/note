@@ -17,6 +17,6 @@ tomcat              tomcat-native       tomcat@7            tomcat@8
 ```
 
 ```shell
-
+$ brew install tomcat #	安装 tomcat
 ```
 
