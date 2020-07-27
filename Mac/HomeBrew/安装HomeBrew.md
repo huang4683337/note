@@ -10,3 +10,12 @@ $ /usr/bin/ruby -e "$(curl -fsSL https://cdn.jsdelivr.net/gh/ineo6/homebrew-inst
 
 ```
 
+
+
+## homebrew 安装目录
+
+```shell
+# homebrew 安装目录
+/usr/local/Homebrew
+```
+
