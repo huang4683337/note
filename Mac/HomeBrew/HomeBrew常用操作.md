@@ -8,6 +8,7 @@ $ brew uninstall <name> --force 	# 彻底卸载指定软件，包括旧版本
 $ brew list								# 显示所有已安装过的软件
 $ brew search	node				# 搜索本地远程仓库的软件，已安装会显示绿色的勾
 $ brew search /正则/			 # 使用正则表达式搜软件
+
 $ brew deps --installed --tree # 查看已安装的包的依赖，树形显示
 ```
 

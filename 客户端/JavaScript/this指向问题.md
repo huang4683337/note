@@ -14,6 +14,8 @@
 > 若否: this 还是指向实例
 >
 > 5、在严格模式中的默认的 this 不再是 window ，而是 undefined
+>
+> 6、箭头函数本身是没有 `this` , 箭头函数的 `this` 指向定义此函数的哪个作用域
 
 
 
@@ -144,6 +146,55 @@ var b = new fn;
 
 console.log(b.user)
 ```
+
+
+
+### 箭头函数
+
+
+```js
+// 定义变量 、函数
+var a = 10;
+var obj = {
+  a:'obj.a',
+  fn: function(callback){
+    callback();
+	}
+}
+```
+
+```js
+obj.fn(()=>{
+  console.log(this); // window
+})
+
+// 等价于
+let ff = () => { console.log(this) }	// this 指向定义 ff 函数的作用域 window
+obj.fn(ff);
+```
+
+```js
+obj.fn(function(){
+	console.log(this);	// window; 回调函数 callback 是 window 在调用执行, 所以 this 指向 window
+})
+
+obj.fn(function(){ console.log(this)}.bind(obj) );	// 'obj.a'; 通过 bind 改变 this 指向
+```
+
+
+
+```js
+// 箭头函数无法改变 this, 因为箭头函数没有自己的 this
+
+// 所以以下都会报错
+var a = () => {}.bind(this);
+var a = () => {}.call(this);
+var a = () => {}.apply(this);
+```
+
+
+
+
 
 
 
@@ -389,3 +440,29 @@ let slice = Function.prototype.apply.bind(Array.prototype.slice);
 slice(arguments);
 ```
 
+
+
+
+
+## 匿名函数
+
+```js
+function a(){}
+// 等于
+var a = function(){}
+```
+
+
+
+```js
+// 这是一个函数声明
+function a(){
+  
+}
+
+// 这是一个表达式
+(function(){
+})
+
+// js 在预编译阶段会解释（编译）函数声明，但不会解释（编译）表达式。
+```

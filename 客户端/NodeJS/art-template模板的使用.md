@@ -123,7 +123,7 @@ server.listen('3000', '127.0.0.1', () => {
 
 > 自行查看 [模板继承](https://aui.github.io/art-template/zh-cn/docs/syntax.html#%E6%A8%A1%E6%9D%BF%E7%BB%A7%E6%89%BF)
 
-> 可以继承 \<style>\</style> 、\<div>\</div>、\<script>\</script>
+> 可以继承 `<style></style>` 、`<div></div>`、`<script></script>`
 
 
 
