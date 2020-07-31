@@ -1,11 +1,21 @@
 # mac 
 
+```js
+// 切 png
+通过左上角三角形选中图层 => 右键右边图层界面，	复制图层 => 新建 确定 => 上边工具栏选择文件，存储为 => 格式选为 png
+```
+
+
+
 ```shell
 $ ifconfig # Mac 查看本地IP
 
 $ which node # 查看某包的安装路径 例如 node
 
 $ whoami #	查看本机用户名
+
+$ control + command + q		# 锁屏
+$ option + commamd + 电源	# 睡眠
 ```
 
 
