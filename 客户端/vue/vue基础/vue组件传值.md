@@ -1,5 +1,3 @@
-# vue组件传值
-
 
 
 ## 父传子
@@ -203,6 +201,10 @@ data(){
 实现原理如下:
 
 ```js
+/**
+核心 :valeu @input
+*/
+
 /*
 input: 在值发生变化时触发事件，也就是原生 js 的 oninput 事件;
 当 input 中的值发生变化时, 将 input 的值赋给 msg 就实现了双向绑定
@@ -305,3 +307,121 @@ data(){
   }
 ```
 
+
+
+##  非属性特性
+
+非属性特性： 非 `prop` 特性，父组件将值传进来，但是子组件没有通过 `props` 来接收，子组件还想使用某些属性。
+
++ `$attrs` 爷孙之间的属性传递，并且孙子不需要通过 `props` 接收
+
+  ```html
+  <!-- 父组件 -->
+  <child parent:'父组件传来的'></child>
+  
+  <!-- 子组件中：没有通过 proprs 接收，直接通过 $attrs 使用父组件传来的数据 -->
+  <p>{{$attrs.parent}}</p>
+  ```
+
+  在封装大型组件时，会出现爷孙之间的传值`<A> <B> <C></C>  </B> </A>`
+
+  ```html
+  <!-- 
+  组件 C 中需要使用组件 A 中的某些属性，
+  但是组件 B 不需要
+  -->
+  
+  <!-- 一般做法：逐层传递 -->
+  <A :a="" :b=”"...> 
+  	<B :a="" :b=”"...> 
+  		<C></C> 
+    </B> 
+  </A>
+  
+  <!-- 
+  爷爷传值，父亲转发，孙子使用
+  使用 $attrs, 通过 v-bind 展开 $attrs， 类似于ES6的... 
+  -->
+  <A :a="" :b=”"...> 
+  	<B v-bind="$attrs"> 
+  		<C></C> 
+    </B> 
+  </A>
+  ```
+
++ `$listeners` 爷孙之间事件传递
+
+  ```html
+  <!-- 爷爷组件 -->
+  <father @hello="onHello"></father>
+  
+  onHello() {
+    console.log('来自孙子的问候');  
+  }
+  ```
+
+  ```html
+  <!-- 父亲组件 -->
+  <!-- v-on="$listeners" 将事件传给儿子 -->
+  <Grandson v-bind="$attrs" v-on="$listeners"></Grandson>
+  ```
+
+  ```html
+  <!-- 孙子组件 -->
+  <!-- 直接使用、触发爷爷的方法-->
+  <h3 @click="$emit('hello')">grandson</h3>
+  ```
+
+  
+
+### provide/inject
+
+实现祖先和后代之间的通信, `provide/inject`绑定是不可响应的，除非两者之间绑定的值是通过`vue`实现了数据绑定的，比如：`data`中的值 
+
+[provide/inject](https://cn.vuejs.org/v2/api/#provide-inject)
+
++ `provide` 祖先中注入
+
+  ```js
+  export default {
+    provide() {
+      return {
+        bar: 'barrrrrr',
+        fn: this.fn
+      }
+    }
+    methods:{
+    	fn(){
+    		console.log("provide/inject");
+  		}
+  	}
+  }
+  ```
+
++ `inject` 后代接收
+
+  ```html
+  <h3 @click="emitFn">provide/inject</h3>
+  ```
+
+  ```js
+  inject: {
+    bar2: {
+      from: "bar",
+      default: "",
+    },
+    fn: {
+      from: "fn",
+      default: "",
+    },
+  },
+    
+  methods: {
+    emitFn() {
+      console.log(this.bar2);	// barrrrrr
+      this.fn();	// provide/inject
+    },
+  },
+  ```
+
+  
