@@ -17,6 +17,31 @@
 
 
 
+
+
+### 下载源码
+
+[报错解决](https://blog.csdn.net/LiyangBai/article/details/105253976)
+
+```js
+cd  node_modules\rollup-plugin-alias
+npm install
+npm run build
+```
+
+
+
+```js
+package.json 添加--sourcemap
+
+
+"dev": "rollup -w -c scripts/config.js --sourcemap --environment TARGET:web-full-dev",
+```
+
+
+
+
+
 ## `package.json` 找 `dev` 选项对应的 
 
 ```js
