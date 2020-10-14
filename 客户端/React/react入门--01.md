@@ -17,7 +17,7 @@ $ cd my-app
 $ npm start
 
 # 暴露配置项 - 此操作不可逆
-$ npm run eject
+$ npm run eject ==> y
 ```
 
 
