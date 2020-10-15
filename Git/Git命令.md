@@ -37,15 +37,15 @@
 
 ## 远程仓库
 
-| 功能                           | 命令                                |
-| ------------------------------ | ----------------------------------- |
-| 初始化一个 git 仓库            | git init                            |
-| 显示隐藏文件 .git              | ls -ah                              |
-| 添加远程仓库地址到本地         | git remote add origin  远程仓库地址 |
-| 查看远程仓库地址               | git remote -v                       |
-| 切换远程仓库地址               | git remote set-url origin url       |
-| 直接用本地代码强行覆盖远程代码 | git push -f                         |
-| 使用某个分支覆盖当前分支       | git reset --hard origin/某个分支    |
+| 功能                           | 命令                                   |
+| ------------------------------ | -------------------------------------- |
+| 初始化一个 git 仓库            | git init                               |
+| 显示隐藏文件 .git              | ls -ah                                 |
+| 添加远程仓库地址到本地         | git remote add origin  远程仓库地址    |
+| 查看远程仓库地址               | git remote -v                          |
+| 切换远程仓库地址               | git remote set-url origin 远程仓库地址 |
+| 直接用本地代码强行覆盖远程代码 | git push -f                            |
+| 使用某个分支覆盖当前分支       | git reset --hard origin/某个分支       |
 
 
 
@@ -74,13 +74,13 @@
 
 ## 分支管理
 
-| 管理                                 | 命令                |
-| ------------------------------------ | ------------------- |
-| 创建分支 dev                         | git branch dev      |
-| 切换到分支 dev                       | git checkout dev    |
-| 创建并切换分支到 dev                 | git checkout -b dev |
-| 查看当前分支；当前分支前会以星号标注 | git branch          |
-| 将dev分支合并到当前所在分支上        | git merge dev       |
-| 删除分支dev                          | git branch -d dev   |
-|                                      |                     |
+| 管理                                 | 命令                            |
+| ------------------------------------ | ------------------------------- |
+| 创建分支 dev                         | git branch dev                  |
+| 切换到分支 dev                       | git checkout dev                |
+| 创建并切换分支到 dev                 | git checkout -b dev             |
+| 查看当前分支；当前分支前会以星号标注 | git branch                      |
+| 将dev分支合并到当前所在分支上        | git merge dev                   |
+| 删除分支dev                          | git branch -d dev               |
+| 删除远程分支                         | git push origin --delete 分支名 |
 
