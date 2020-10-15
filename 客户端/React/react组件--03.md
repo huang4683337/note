@@ -7,7 +7,7 @@
 
 **组件有两种形式：class 组件和 function 组件。**
 
-
+[组件 & Props](https://zh-hans.reactjs.org/docs/components-and-props.html)
 
 ## 注意
 
