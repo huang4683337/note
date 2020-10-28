@@ -276,6 +276,11 @@ rs2.pipe(ws2);
 
 **通过 http 访问一个图片时怎么处理**
 
+访问 `http://localhost:3000`会发起两次请求
+
++ 请求 index.html 页面
++ index.html 页面中 img 标签请求图片
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
