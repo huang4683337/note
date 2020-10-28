@@ -4,7 +4,7 @@ import Vue from "vue";
 /**
  * 传递一个组件配置，返回一个组件实例，并且挂载它到body上
  * @param {*} Component 一个完整的组件组件
- * @param {*} props     组件中的 props 属性对应参数
+ * @param {*} props 组件中的 props 属性对应参数
  */
 function create(Component, props) {
     // 构建一个子类

@@ -32,6 +32,8 @@ this.setState({ date: new Date() }); // 页面 发生改变
 
 ## State 的更新可能是异步的
 
+首先编写以下代码
+
 ```react
 import React, { Component } from "react";
 
