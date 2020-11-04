@@ -147,6 +147,55 @@ data() {
   #		try_files $uri $uri/ 后面的地址以 root 为参照，并最终指向 index.html
   ```
 
++ 如果通过 tomcat 访问
+
+  **访问静态文件**
+
+  ```xml
+  tomcat ==> conf ==> server.xml ==> <host>
+  	<Context path='/gsafetyweb/iams' docBase="静态文件存放地址，例如：D:\gsafetyWeb\iams" reloadable="true"
+             crossContext="true"/>
+  </host>
+  
+  path：为虚拟路径
+  
+docBase：为项目的路径
+  
+  启动 tomcat 后在浏览器输入 http://localhost:8888/gsafetyweb/iams/login
+  
+  
+  ```
+  > 注意： path 对应的值 ，需要和 访问的地址相匹配
+  >
+  > 比如 path 为：/a，访问地址定为 /b是不行的
+  
+  
+  
+  **刷新时重定向到页面**
+  
+  ```xml
+  iams ==> WEB-INF 文件夹 ==> web.xml
+  
+  
+  <?xml version="1.0" encoding="UTF-8"?>
+  <web-app 
+           xmlns="http://java.sun.com/xml/ns/javaee"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 					http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
+         version="3.0" 
+           metadata-complete="true">
+  
+    <display-name>Your Project Name</display-name>
+    <description>
+       Your Project Description
+    </description>
+    <error-page>  
+     <error-code>404</error-code>  
+     <location>/index.html</location>  
+    </error-page>  
+  </web-app>
+  ```
+  
   
 
 ### 3-2 history.pushState()
