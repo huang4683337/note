@@ -303,7 +303,7 @@ Observer.prototype = {
   
   function Dep() {
   	this.id = id++;
-      this.subs = [];
+    this.subs = [];
   }
   
   
