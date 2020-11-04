@@ -1,3 +1,7 @@
+[nginx参考文档](https://zhuanlan.zhihu.com/p/112501786)
+
+
+
 ##  windows
 
 ```shell
@@ -37,3 +41,4 @@ nginx -s reopen		# 重新打开日志文件
 #测试nginx配置文件是否正确
 nginx -t -c /path/to/nginx.conf
 ```
+

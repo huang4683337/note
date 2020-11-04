@@ -20,3 +20,21 @@ tomcat              tomcat-native       tomcat@7            tomcat@8
 $ brew install tomcat #	安装 tomcat
 ```
 
+```shell
+$ catalina -h  # 检查是否安装成功
+```
+
+```shell
+$ catalina run	# 临时运行tomcat
+
+$ brew services start tomcat  # 正式启动 
+```
+
+```js
+// Tomcat的默认端口是8080，如果运行成功可通过 http://localhost:8080 访问
+
+// 我自己将端口改为 8888 ==> http://localhost:8080
+
+// webapp的根目录(CATALINA_HOME)为:/usr/local/Cellar/tomcat/7.0.33/libexec/webapps/ROOT/
+```
+

@@ -37,15 +37,16 @@
 
 ## 远程仓库
 
-| 功能                           | 命令                                   |
-| ------------------------------ | -------------------------------------- |
-| 初始化一个 git 仓库            | git init                               |
-| 显示隐藏文件 .git              | ls -ah                                 |
-| 添加远程仓库地址到本地         | git remote add origin  远程仓库地址    |
-| 查看远程仓库地址               | git remote -v                          |
-| 切换远程仓库地址               | git remote set-url origin 远程仓库地址 |
-| 直接用本地代码强行覆盖远程代码 | git push -f                            |
-| 使用某个分支覆盖当前分支       | git reset --hard origin/某个分支       |
+| 功能                             | 命令                                                |
+| -------------------------------- | --------------------------------------------------- |
+| 初始化一个 git 仓库              | git init                                            |
+| 显示隐藏文件 .git                | ls -ah                                              |
+| 添加远程仓库地址到本地           | git remote add origin  远程仓库地址                 |
+| 查看远程仓库地址                 | git remote -v                                       |
+| 切换远程仓库地址                 | git remote set-url origin url                       |
+| 直接用本地代码强行覆盖远程代码   | git push -f                                         |
+| 使用某个分支覆盖当前分支         | git reset --hard origin/某个分支                    |
+| 本地代码第一次提交到一个非空仓库 | git pull origin develop --allow-unrelated-histories |
 
 
 
