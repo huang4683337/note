@@ -2,6 +2,14 @@
 
 老师有文档
 
+```shell
+# 注意：自定义安装目录时，MySQL 安装目录和 data 安装目录需要在同一级
+F:\devTool\MySQL\MySQL # MySQL 安装目录
+F:\devTool\MySQL\data	 # 数据库安装目录
+```
+
+
+
 
 
 ## 启动停止
@@ -34,4 +42,14 @@ mysql -u root -p
 # 开始菜单找到 MySQL 8.0 Command Line Client
 # 一般在第一个
 ```
+
+```shell
+ # ctrl + alt + .
+ # 服务那一项中找到 mysql 
+ # 右键启动
+```
+
+
+
+
 
