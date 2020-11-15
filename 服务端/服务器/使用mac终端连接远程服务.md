@@ -42,14 +42,18 @@ $ ssh root@xxx.xx.xxx.xx -p 22
   ```shell
   # 安装 git 
   # 从开始菜单中打开 git base
+  
+  $ vim ~/.ssh/config
+  
+  # 添加以下内容
   Host 别名
       HostName IP地址
       Port 22
       User 用户名
-      
+    
   # 使用
   $ ssh 别名
   ```
-
+  
   
 
