@@ -9,6 +9,6 @@ $ mysql -h 远程服务公网IP -u root -p
 
 [mysql给root开启远程访问权限](https://www.cnblogs.com/goxcheer/p/8797377.html)
 
-
-
-## 
+```
+sudo yum-config-manager \ --add-repo \  https://download.docker.com/linux/centos/docker-ce.repo
+```
