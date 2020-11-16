@@ -39,6 +39,8 @@ $ ssh root@xxx.xx.xxx.xx -p 22
 
 + window 下
 
+  此方法能实现通过别名访问远程服务，但是 git 无法提交代码
+  
   ```shell
   # 安装 git 
   # 从开始菜单中打开 git base
@@ -48,9 +50,9 @@ $ ssh root@xxx.xx.xxx.xx -p 22
   # 添加以下内容
   Host 别名
       HostName IP地址
-      Port 22
+    Port 22
       User 用户名
-    
+      
   # 使用
   $ ssh 别名
   ```

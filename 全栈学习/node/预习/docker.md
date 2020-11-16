@@ -21,7 +21,7 @@ echo 'hello docker!!' >> www/index.html
 docker run -p 8000:80 -v $PWD/www:/usr/share/nginx/html nginx
 # -p 端口映射 
 # 8000：发布到服务器的8000端口 （实体机）
-# 80：映射到80端口 （映射机）
+# 80：容器使用的80端口 （映射机）
 # $PWD：访问哪个文件
 # nginx：使用的镜像名叫 nginx
 # 打开浏览器：云服务公网ip：8000 访问
@@ -190,5 +190,136 @@ docker run -p 3000:3000 mynode
 
 
 # 打开浏览器： 云服务ip:3000
+```
+
+
+
+## 定制PM2镜像
+
+```shell
+# 登录已经安装 docker 的服务
+
+# cd source/docker
+
+# 将上面 node 文件克隆到 pm2文件
+$ cp -R node pm2
+```
+
+```shell
+$ vi process.yml
+
+# 写入以下内容
+apps:
+	- script : app.js				# 执行：app.js
+	instances: 2						# 启动两个进程
+	watch : true						# 开启监听
+	env :										
+		NODE_ENV: production	#	生产环境
+```
+
+```shell
+# Dockerfile
+
+FROM keymetrics/pm2:latest-alpine
+WORKDIR /usr/src/app
+ADD . /usr/src/app
+
+# 设置镜像地址 并且安装 node 包
+RUN npm config set registry https://registry.npm.taobao.org/ && \
+npm i
+
+EXPOSE 3000
+
+#pm2在docker中使用命令为pm2-docker
+CMD ["pm2-runtime", "start", "process.yml"]
+
+# :wq 保存退出
+```
+
+```shell
+# 代码编译为 mynode，并且输入 Dockerfile 的文件路径 -- . 代表Dockerfile在当前目录下
+$ docker build -t mypm2 . 
+
+
+# 运行
+docker run -p 3000:3000 -d mypm2
+
+
+# 打开浏览器： 云服务ip:3000
+```
+
+
+
+## 安装 docker-compose
+
+```shell
+# 安装
+$
+```
+
+```shell
+$ vi docker-compose.yml
+
+# 写入以下代码
+version: '3.1'
+services:
+ hello-world:
+ image: hello-world
+```
+
+```shell
+# 
+$ docker-cimpose up
+```
+
+
+
+## Compose 配置 mongoDB
+
+Compose项目是 Docker 官方的开源项目，负责实现对 Docker 容器集群的快速编排。
+
+简单来说就是，如果是好几个 docker 项目想一起运行怎么做，Compose 就可以
+
+
+
+**使用 Compose 搭建 mongoDB 环境**
+
+```shell
+# 登录安装了 docker 的远程服务
+
+# 进入 docker
+$ cd source/docker
+
+# 新建一个 mongodb 文件夹
+$ mkdri mongo
+$ cd mongo
+
+#
+$ vi docker-compose.yml
+
+
+# docker-compose.yml
+# 写入以下内容
+version: '3.1'			# docker-compose 版本
+services:						# 下面有几个镜像要启动
+	mongo:
+		image: mongo		# 镜像名字
+		restart: always	# 镜像挂了自己重启
+		ports:
+			- 27017:27017	# 镜像端口映射到哪里
+	mongo-express:
+		image: mongo-express
+		restart: always
+		ports:
+			- 8000:8081
+```
+
+```shell
+# 运行镜像
+$ docker-compiose up
+```
+
+```shell
+# 打开浏览器 云服务ip:8000
 ```
 
