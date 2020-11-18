@@ -29,19 +29,23 @@ IF NOT EXISTS 		# 判断当前库或者表中有没有  如果有会忽略错误
 
 ```shell
 $ drop table 表名；
-$ show databases;    	# 显示所有数据库名字
-$ use t1;   			# 进入数据库 t1;
-$ show tables;   		# 显示 当前 数据库下的表名
-$ describe users1;   	# 显示 当前数据库下 数据表users1的结构
-$ SHOW COLUMNS FROM tb1;# 查看数据表结构
+$ SHOW TABLES FROM mysql;	 					# 查看mysql数据库中所有的数据表
+$ show databases;    								# 显示所有数据库名字
+$ use t1;														# 进入数据库 t1;
+$ SHOW CREATE DATABASE 数据库名字;		 # 查看数据库编码
+$ SELECT DATABASE();  		 					# 查看用户当前打开的数据库
 
-$ SHOW TABLE FROM 数据库名字;  # 查询当前数据库下的所有表名
-$ SELECT * FROM 表名;  		# 查询当前数据表下的内容
-$ SELECT * FROM 表名\G;  		# 以网格的形式显示当前数据表下的内容
-$ SHOW CREATE DATABASE +数据库名字;      # 查看数据库编码
-$ SHOW WARNINGS;             # 查看错误信息
-$ SELECT DATABASE();  		 # 查看用户当前打开的数据库
-$ SHOW TABLES FROM mysql	 # 查看mysql数据库中所有的数据表
+$ SHOW TABLE FROM 数据库名字;		 		 # 查询当前数据库下的所有表名
+$ show tables;   										# 显示 当前 数据库下的表名
+$ describe users1;   								# 显示 当前数据库下 数据表users1的结构
+$ SHOW COLUMNS FROM tb1;						# 查看数据表结构
+
+
+
+$ SELECT * FROM 表名;						 		# 查询当前数据表下的内容
+$ SELECT * FROM 表名\G;  				 		# 以网格的形式显示当前数据表下的内容
+
+$ SHOW WARNINGS;           # 查看错误信息
 ```
 
 
