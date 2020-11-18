@@ -125,3 +125,87 @@ $ docker-compose up
 
 
 ## 实战 NodeJs
+
+```shell
+# node 项目根目录下新建 process.yml
+# process.yml 是 pm2 的配置文件
+
+apps:
+  - script : server.js
+    instances: 2
+    watch  : true
+    env    :
+      NODE_ENV: production
+```
+
+```shell
+# node 项目根目录下新建 .dockerignore
+# .dockerignore 上传忽略某些文件
+
+node_modules
+```
+
+```shell
+# node 项目根目录下新建 Dockerfile
+
+FROM keymetrics/pm2:latest-alpine
+WORKDIR /usr/src/app
+ADD . /usr/src/app
+RUN npm config set registry https://registry.npm.taobao.org/ && \  
+    npm i
+
+# RUN npm i
+
+
+EXPOSE 3000
+
+
+#pm2在docker中使用命令为pm2-docker
+# CMD ["pm2-runtime", "start", "--json", "process.json"]
+CMD ["pm2-runtime", "start",  "process.yml"]
+
+```
+
+```shell
+# 修改数据库配置
+module.exports = {
+    url: "mongodb://mongo:27017",
+    dbName: 'taro',
+}
+```
+
+```shell
+# nginx/conf/docker.conf 下添加反向代理
+location /api {
+    proxy_pass  http://app-pm2:3000;
+    proxy_redirect     off;
+    proxy_set_header   Host             $host;
+    proxy_set_header   X-Real-IP        $remote_addr;
+    proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+}
+```
+
+```shell
+# docker-compose文件添加
+version: '3.1'
+	services:
+		app-pm2:
+			container_name: app-pm2
+			#构建容器
+			build: ./backend
+			ports:
+				- "3000:3000"
+		mongo:
+			image: mongo
+			restart: always
+			ports:
+				- 27017:27017
+
+```
+
+
+
+## 实战  webHook 持续集成 
+
+目标：git push 之后，服务会自动更新
+

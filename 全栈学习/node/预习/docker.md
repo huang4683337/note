@@ -1,4 +1,20 @@
+## 安装 docker
+
 [centos 安装docter](https://www.runoob.com/docker/centos-docker-install.html)
+
+
+
+## docker 开启远程访问
+
+[docker开启远程访问（CentOS系统）](https://blog.csdn.net/longzhanpeng/article/details/82217398)
+
+
+
+## vscode使用docker
+
+[vscode远程连接docker](https://www.cnblogs.com/adawoo/p/11056658.html)
+
+
 
 
 
@@ -252,24 +268,41 @@ docker run -p 3000:3000 -d mypm2
 
 ## 安装 docker-compose
 
-```shell
-# 安装
-$
-```
+[安装参考地址](https://blog.csdn.net/ytangdigl/article/details/103831739)
+
+**验证是否安装成功**
+
 
 ```shell
+# 进入自己存放docker镜像的目录，随便哪个都行
+$ cd source/docker
+
+# 新建一个 hell-world 文件夹
+$ mkdir hello-world
+$cd hello-world
+
+
 $ vi docker-compose.yml
 
 # 写入以下代码
 version: '3.1'
 services:
  hello-world:
- image: hello-world
+   image: hello-world
 ```
 
 ```shell
-# 
-$ docker-cimpose up
+# 启动
+$ docker-compose up
+
+# 关闭
+$ docker-compose down
+
+# 查看帮助
+$ docker-compose help
+
+# 查看运行的镜像
+$ docker-compose ps
 ```
 
 
@@ -279,6 +312,10 @@ $ docker-cimpose up
 Compose项目是 Docker 官方的开源项目，负责实现对 Docker 容器集群的快速编排。
 
 简单来说就是，如果是好几个 docker 项目想一起运行怎么做，Compose 就可以
+
+
+
+[docker如何配置阿里云加速器](https://blog.csdn.net/xcc_2269861428/article/details/103781826)
 
 
 
@@ -300,23 +337,25 @@ $ vi docker-compose.yml
 
 # docker-compose.yml
 # 写入以下内容
-version: '3.1'			# docker-compose 版本
-services:						# 下面有几个镜像要启动
-	mongo:
-		image: mongo		# 镜像名字
-		restart: always	# 镜像挂了自己重启
-		ports:
-			- 27017:27017	# 镜像端口映射到哪里
-	mongo-express:
-		image: mongo-express
-		restart: always
-		ports:
-			- 8000:8081
+version: '3.1'      # docker-compose 版本
+services:	          # 下面有几个镜像要启动
+  mongo:
+    image: mongo    # 镜像名字,登录时填入
+    restart: always # 镜像挂了自己重启
+    ports:
+      - 27017:27017 # 镜像端口映射到哪里
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8000:8081
 ```
 
 ```shell
 # 运行镜像
-$ docker-compiose up
+$ docker-compose up
+
+# 第一次运行会直接下载镜像，添加阿里云镜像加速器简直飞速
 ```
 
 ```shell
