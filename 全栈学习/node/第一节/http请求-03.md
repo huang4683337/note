@@ -11,6 +11,9 @@ const server = http.createServer((req, res) => {
 
     // 一次性设置响应头
     // response.writeHead(500, { "Content-Type": "text/plain;charset=utf-8" });
+  	// 分开设置
+  	response.statusCode = 200;
+  	response.setHeader('Content-Type', 'text/html');
 
   res.end("1");
 });
