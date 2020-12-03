@@ -2,6 +2,8 @@
 
 ## set 数据结构
 
+### 概念
+
 > 类似于数组结构 
 >
 > 值唯一：在set结构中不会出现相同的值
@@ -22,28 +24,7 @@ console.log([...set])	// [1, 2, 3, 4]
 set.size	// 4
 ```
 
-### set 使用 
 
-```js
-// 数组去重
-[...new set([1,2,3,3,3,3])]; // 使用展开操作符将set结构放入一个新的数组中
-Array.from(new Set(array)); // 利用set值的唯一性，然后利用 Array.from转成数组
-
-
-// 字符串去重
-[...new Set('ababbc')].join('')
-```
-
-> 向 set 中插入值的时候不会发生数据类型的转换
->
-> set 中判断两个值是否相等类似于 `===`   但是在set 中 NaN===NaN
-
-### set 实例属性
-
-```js
-// Set.prototype.constructor：构造函数，默认就是Set函数。
-// Set.prototype.size：返回Set实例的成员总数
-```
 
 ### set 操作方法
 
@@ -62,6 +43,39 @@ set.has(1);	// true
 // Set.prototype.clear()：清除所有成员，没有返回值。
 set.clear();
 ```
+
+
+
+### set 使用 
+
+```js
+// 数组去重
+[...new set([1,2,3,3,3,3])]; // 使用展开操作符将set结构放入一个新的数组中
+Array.from(new Set(array)); // 利用set值的唯一性，然后利用 Array.from转成数组
+
+
+// 字符串去重
+[...new Set('ababbc')].join('')
+```
+
+> 向 set 中插入值的时候不会发生数据类型的转换
+>
+> set 中判断两个值是否相等类似于 `===`   但是在set 中 NaN===NaN
+
+
+
+
+
+### set 实例属性
+
+```js
+// Set.prototype.constructor：构造函数，默认就是Set函数。
+// Set.prototype.size：返回Set实例的成员总数
+```
+
+
+
+
 
 ### set 遍历方法,配合 for...of
 
@@ -160,6 +174,16 @@ ws.has(obj);
 
 > 传统的字符串只能用字符串当作键。在Map结构中任何数据类型都可以当作键来使用。
 
+
+
+### Map 操作方法
+
++ 创建一个 Map   ==> `cosnt map = new Map([ [key,value] ])`
++ 给 Map 添加值   ==> `map.set(key,value)`
++ 获取值  ==> `map.get(key)`
+
+
+
 ### Map 使用
 
 **Map 接收一个数组作为参数,数组的成员是一个表示键值对的数组 => [ [key,value], [key,value] ]**
@@ -184,24 +208,9 @@ items.forEach(
 );
 ```
 
-> forEach 方法使用解析
-
-```js
-var arr = [1,2];
-arr.forEach( (item,index)=>{
-  console.log(item+':'+index); // 7:0		8:1
-} )
 
 
-var arr = [['name','名字'], ['age',19]];
-arr.forEach(([key,value],index)=>{
-  console.log(key+'--'+value+':'+index);
-})
-
-// 我们可以将 item 参数进行解构赋值 [key,value] = ['name', '名字']
-```
-
-**用一个变量去当作键**
+### 用一个变量去当作键
 
 ```js
 const m = new Map();
@@ -255,6 +264,10 @@ map.get(undefined) // 3
 map.set(NaN, 123);
 map.get(NaN) // 123
 ```
+
+
+
+
 
 ### Map 实例的属性
 
