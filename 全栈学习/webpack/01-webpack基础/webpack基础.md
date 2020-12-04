@@ -500,11 +500,3 @@ plugins: [
 1个bundle 对应一个 chunk
 
 1个chunk对应一个或者多个module
-<<<<<<< HEAD
-=======
-
-
-
-
-
->>>>>>> d534023ed2db6b6ac16d844c0c7a84278e041315
