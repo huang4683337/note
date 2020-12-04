@@ -164,7 +164,13 @@ module.exports = {
 
 
 
-## entry
+
+
+## webpack.config.js 基本属性
+
+
+
+### entry
 
 指定 `webpack` 打包⼊⼝⽂件 `:Webpack`  执⾏构建的第⼀步将从 `Entry `开始，可抽象成输⼊
 
@@ -187,7 +193,7 @@ entry:{
 
 
 
-## output
+### output
 
 打包转换后的⽂件输出到磁盘位置:输出结果，在 `Webpack` 经过⼀系列处理并得出最终想要的代码后输出结果。
 
@@ -206,13 +212,13 @@ output: {
 
 
 
-## mode
+### mode
 
 查看官网
 
 
 
-## loader
+### loader
 
 [参考地址](https://v4.webpack.docschina.org/loaders/)
 
@@ -229,7 +235,7 @@ loader的作用：模块解析，模块转换器，⽤于把模块原内容按�
 
 
 
-### moudle
+#### moudle
 
 模块，在 `Webpack` ⾥⼀切皆模块，⼀个模块对应着⼀个⽂件。
 
@@ -253,7 +259,7 @@ module: {
 
 
 
-### 处理样式文件
+#### 处理样式文件
 
 + 使用 `css`
 
@@ -340,7 +346,7 @@ module: {
 
 
 
-### less、sass文件的处理
+#### less、sass文件的处理
 
 less-loader / sass-loader： 先将 less / sass 转化成 css
 
@@ -361,7 +367,7 @@ module: {
 
 
 
-## plugin
+### plugin
 
 对于 `webpack` 功能的补充
 
@@ -379,7 +385,7 @@ module: {
 
 
 
-### HtmlWebpackPlugin
+#### HtmlWebpackPlugin
 
 htmlwebpackplugin会在打包结束后，⾃动⽣成⼀个html⽂件，并把打包⽣成的js模块引⼊到该html中。
 
@@ -467,7 +473,7 @@ plugins: [
 
 
 
-### clean-webpack-plugin
+#### clean-webpack-plugin
 
 每次构建之前会清空 dist 目录，避免我们手动删除
 
@@ -485,7 +491,7 @@ plugins: [
 
 
 
-## chunk
+### chunk
 
 与入口有关，根据入口加载相关的依赖，编译处理后的结果就是一个chunk
 
@@ -494,78 +500,3 @@ plugins: [
 1个bundle 对应一个 chunk
 
 1个chunk对应一个或者多个module
-
-
-
-
-
-## 构建结果解析
-
-```js
-// src/index.js
-console.log('hello world')
-```
-
-```shell
-$ npx webpack		# 使用 webpack 编译
-```
-
-```js
-/*
-build.js 简化后的代码
-*/
-
-/*
-实现步骤：
-
-*/
-
-(function (modules) {
-
-  // 先定义一个缓存
-  var installedModules = {};
-
-  /**
-   * 实际上就是
-   * "./src/index.js": module
-   */
-
-
-  // 配置了（实现了） require 方法
-  function __webpack_require__(moduleId) { 
-
-    // 不在缓存中
-    if (installedModules[moduleId]) {
-      return installedModules[moduleId].exports;
-    }
-
-    // 安装
-    var module = installedModules[moduleId] = {
-      i: moduleId,
-      l: false, // 是否加载完成
-      exports: {}
-    };
-
-    // moduleId: ./src/index.js"
-    // 通过 call 执行文件对应的匿名自执行函数
-    modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
-    module.l = true;
-
-    return module.exports;
-  }
-
-  // 入口模块 默认为 "./src/index.js"
-  return __webpack_require__(__webpack_require__.s = "./src/index.js");
-})
-  ({
-
-    "./src/index.js":  // key: -> 当前模块路径（每个文件都是一个模块）
-
-      (function (module, exports) { // value：函数
-
-        eval("console.log('hello world')\n\n//# sourceURL=webpack:///./src/index.js?");
-
-      })
-  });
-```
