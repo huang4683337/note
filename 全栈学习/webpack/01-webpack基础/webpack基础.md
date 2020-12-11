@@ -387,7 +387,7 @@ module: {
 
 #### HtmlWebpackPlugin
 
-htmlwebpackplugin会在打包结束后，⾃动⽣成⼀个html⽂件，并把打包⽣成的js模块引⼊到该html中。
+htmlwebpackplugin会在打包结束后，`通过定义到模板`⾃动⽣成⼀个html⽂件，并把打包⽣成的js模块引⼊到该html中。
 
 ```shell
 # 安装 HtmlWebpackPlugin
