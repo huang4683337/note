@@ -3,6 +3,6 @@
 ```shell
 # Error: sudo required (or change ownership, or define N_PREFIX)
 
-$ sudo n node版本号
+$ sudo n 'node版本号'
 ```
 

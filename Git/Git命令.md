@@ -84,4 +84,5 @@
 | 将dev分支合并到当前所在分支上        | git merge dev                   |
 | 删除分支dev                          | git branch -d dev               |
 | 删除远程分支                         | git push origin --delete 分支名 |
+| 本地分支关联远程分支                 | git push origin 本地分支        |
 

@@ -427,3 +427,9 @@ Generator函数返回的遍历器对象，有一个`return`方法
   ```
 
   
+
+## Generator函数的this
+
+## Generator与状态机
+
+## Generator与协程
