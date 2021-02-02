@@ -188,13 +188,88 @@ new Promise(resolve => resolve('foo'))
 
 
 
-### resolve参数是一个 Promise 实例
+### （1）resolve 参数是一个 Promise 实例
+
+如果参数是Promise实例，那么`Promise.resolve`将不做任何修改、原封不动地返回这个实例。
 
 
 
+### （2）参数是一个 `thenable `对象
+
+`thenable `对象指的是具有 `then` 方法的对象
+
+```js
+let thenable = {
+  then: function(resolve, reject) {
+    resolve(42);
+  }
+};
+```
+
+`Promise.resolve `方法会将这个对象转为 Promise 对象，然后就立即执行 `thenable` 对象的 `then` 方法。
+
+```js
+let thenable = {
+  then: function(resolve, reject) {
+    resolve(42);
+  }
+};
+
+let p1 = Promise.resolve(thenable);
+p1.then(function(value) {
+  console.log(value);  // 42
+});
+```
 
 
 
+### （3）参数不是具有`then`方法的对象，或根本就不是对象
+
+如果参数是一个原始值，或者是一个不具有`then`方法的对象，
+
+则`Promise.resolve`方法返回一个新的Promise对象，状态为`Resolved`。
+
+```js
+var p = Promise.resolve('Hello');
+
+p.then(function (s){
+  console.log(s);		// Hello
+});
+```
+
+
+
+### （4）不带有任何参数
+
+`Promise.resolve`方法允许调用时不带参数，直接返回一个`Resolved`状态的Promise对象。
+
+所以，如果希望得到一个Promise对象，比较方便的方法就是直接调用`Promise.resolve`方法。
+
+```js
+var p = Promise.resolve();
+
+p.then(function () {
+  // ...
+});
+```
+
+需要注意的是，立即`resolve`的Promise对象，是在本轮“事件循环”（event loop）的结束时，而不是在下一轮“事件循环”的开始时。
+
+```js
+setTimeout(function () {
+  console.log('three');
+}, 0);
+
+Promise.resolve().then(function () {
+  console.log('two');
+});
+
+console.log('one');
+
+// one
+// two
+// three
+```
 
 
 
@@ -202,7 +277,9 @@ new Promise(resolve => resolve('foo'))
 
 ## Promise.reject()
 
-
++ `Promise.reject(reason)`方法也会返回一个新的Promise实例
++ 该实例的状态为`rejected`
++ 参数用法与 `Promise.resolve `方法完全一致。
 
 
 
@@ -210,7 +287,7 @@ new Promise(resolve => resolve('foo'))
 
 
 
-### finally()
+## finally()
 
 
 
