@@ -285,6 +285,86 @@ for (let line of readLinesSync(fileName)) {
 
 
 
+## 调用Iterator接口的场合
+
++ 解构赋值
+
+  对数组和Set结构进行解构赋值时，会默认调用`Symbol.iterator`方法。
+
+  ```js
+  let set = new Set().add('a').add('b').add('c');
+  
+  let [x,y] = set;
+  // x='a'; y='b'
+  
+  let [first, ...rest] = set;
+  // first='a'; rest=['b','c'];
+  ```
+
+  
+
++ 扩展运算符
+
+  扩展运算符（...）也会调用默认的iterator接口。
+
+  ```js
+  // 例一
+  var str = 'hello';
+  [...str] //  ['h','e','l','l','o']
+  
+  // 例二
+  let arr = ['b', 'c'];
+  ['a', ...arr, 'd']
+  // ['a', 'b', 'c', 'd']
+  ```
+
+  只要某个数据结构部署了Iterator接口，就可以对它使用扩展运算符，将其转为数组
+
+  ```js
+  let arr = [...iterable];
+  ```
+
+
+
++ yield*
+
+  `yield*`后面跟的是一个可遍历的结构，它会调用该结构的遍历器接口。
+
+  ```js
+  let generator = function* () {
+    yield 1;
+    yield* [2,3,4];
+    yield 5;
+  };
+  
+  var iterator = generator();
+  
+  iterator.next() // { value: 1, done: false }
+  iterator.next() // { value: 2, done: false }
+  iterator.next() // { value: 3, done: false }
+  iterator.next() // { value: 4, done: false }
+  iterator.next() // { value: 5, done: false }
+  iterator.next() // { value: undefined, done: true }
+  ```
+
+
+
++ 其他场合
+
+  由于数组的遍历会调用遍历器接口，所以任何接受数组作为参数的场合，其实都调用了遍历器接口。下面是一些例子。
+
+  ```js
+  // for...of
+  // Array.from()
+  // Map(), Set(), WeakMap(), WeakSet()（比如new Map([['a',1],['b',2]])）
+  // Promise.all()
+  // Promise.race()
+  ```
+
+  
+
+
+
 
 
 ## Iterable 的 TS写法
