@@ -19,13 +19,21 @@
 
 
 
-### 下载源码
+## 下载源码
+
+
+
+[源码地址](https://github.com/vuejs/vue)
+
+
+
+### npm run dev 报错
 
 [报错解决](https://blog.csdn.net/LiyangBai/article/details/105253976)
 
 ```js
 cd  node_modules\rollup-plugin-alias
-npm install
+npm install   // 如果在 npm install 报错， 从 https://github.com/ideayuye/rollup-plugin-alias 下载压缩包替换。 然后再次 npm run install
 npm run build
 ```
 
@@ -39,6 +47,24 @@ package.json 添加--sourcemap
 ```
 
 
+
+
+
+## 开始调试
+
++ npm run dev
+
++ 新建 html 文件
+
+  ```js
+  // 引入 `<script src="源码下的/dist/vue.js"></script>
+  
+  new Vue({...})
+  
+  // 浏览器打开 html 文件， 开始断点调试
+  ```
+
+  
 
 
 
