@@ -52,3 +52,18 @@ $ git remote -v		#	查看远程仓库地址
 $ git remote set-url origin	http:xx.xx.xx		# 设置新的远程地址
 ```
 
+
+
+## 本地代码想要跟远程有代码的仓库建立连接
+
+```shell
+fatal: refusing to merge unrelated histories
+```
+
+```shell
+# 在你操作命令后面加 --allow-unrelated-histories
+$ git pull --allow-unrelated-histories
+$ git push --allow-unrelated-histories
+$ git merge --allow-unrelated-histories
+```
+
