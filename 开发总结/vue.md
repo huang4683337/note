@@ -182,3 +182,36 @@ ajax({
 export { isDefaultPanel, isPanelInitData, isAllPanel }
 ```
 
+
+
+## vue组件双向绑定 v-model 原理
+
++ `:value`
+
++ `@input`
+
+```vue
+// 通过 :value 将值传入到 input
+// 通过 @input 来改变 value 的值
+```
+
+```vue
+// 这也可以用于组件的双向绑定
+```
+
+
+
+
+
+## vue使用slot时，子组件如何调用父组件方法
+
+```vue
+// parent
+<div>
+	<slot></slot>
+</div>
+
+// child
+this.$parent.$on('父组件方法名')
+```
+
