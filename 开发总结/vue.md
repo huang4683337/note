@@ -182,3 +182,29 @@ ajax({
 export { isDefaultPanel, isPanelInitData, isAllPanel }
 ```
 
+
+
+
+
+## vue 中刷新页面时保存store中的数据
+
++ 获取到 store 的数据时，直接存在 `sessionStorage` 中，那么这样毫无意义，我们为什么不直接将数据存入到`sessionStorage` 中呢。
++ 通过一个方法监听浏览器的刷新，当浏览器刷新时，我们将需要的数据存入到 `sessionStorage` 中。
+
+
+
+**beforeunload**  监听页面刷新时，将vuex中需要存储的数据存入到 `sessionStorage` 中
+
+因为 `sessionStorage`  在页面关闭后就会清空，所以选择它。
+
+```js
+private created() {
+  window.addEventListener('beforeunload', () => {
+    sessionStorage.setItem(
+      'detailInfo',
+      JSON.stringify(this.$store.state.qucikForm.getDetailParams),
+    );
+  });
+}
+```
+
