@@ -24,7 +24,7 @@ js执行主要经历以下四个：
 + [Browsing Context](https://link.zhihu.com/?target=https%3A//html.spec.whatwg.org/multipage/browsers.html%23browsing-context) 执行上下文
 + [Worker](https://link.zhihu.com/?target=https%3A//www.w3.org/TR/workers/%23worker)  实现了JS的多线程
 
-二者的运行是独立的，也就是说，每一个 JavaScript 运行的"线程环境"都有一个独立的 Event Loop，每一个 Web Worker 也有一个独立的 Event Loop。
+二者的运行是独立的，也就是说，每一个 JavaScript 运行的**线程环境**都有一个独立的 Event Loop，每一个 Web Worker 也有一个独立的 Event Loop。
 
 
 
@@ -32,13 +32,13 @@ js执行主要经历以下四个：
 
 ## 任务队列
 
-事件循环是通过任务队列的机制来进行协调的。
++ 事件循环是通过任务队列的机制来进行协调的。
 
-一个 Event Loop 中，可以有一个或者多个任务队列(task queue)，一个任务队列便是一系列有序任务(task)的集合。
++ 一个 Event Loop 中，可以有一个或者多个任务队列(task queue)，一个任务队列便是一系列有序任务(task)的集合。
 
-每个任务都有一个任务源(task source)，源自同一个任务源的 task 必须放到同一个任务队列，从不同源来的则被添加到不同队列。
++ 每个任务都有一个任务源(task source)，源自同一个任务源的 task 必须放到同一个任务队列，从不同源来的则被添加到不同队列。
 
-setTimeout/Promise 等API便是任务源，而进入任务队列的是他们指定的具体执行任务。
++ setTimeout/Promise 等API便是任务源，而进入任务队列的是他们指定的具体执行任务。
 
 
 
