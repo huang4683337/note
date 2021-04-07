@@ -1,4 +1,4 @@
-# Event
+
 
 ## ie 和 dom 事件流的区别
 
@@ -59,7 +59,7 @@ e.preventDefault ? e.preventDefault() : e.returnValue = false;
 ## 事件流
 
 ```js
-事件执行的顺序问题，当事件发生时，从子元素向父元素触发 或者 从父元素向子元素触发的过程，就交租事件流。
+事件执行的顺序问题，当事件发生时，从子元素向父元素触发 或者 从父元素向子元素触发的过程，就叫做事件流。
 
 事件流的两种模式：
 	事件冒泡：从子元素向父元素触发的过程	// button -> body -> html -> document -> window  
@@ -76,7 +76,10 @@ e.preventDefault ? e.preventDefault() : e.returnValue = false;
 addEventListener(事件,事件处理程序,true);  // true 代表事件捕获
 
 // 通过 事件监听 的方法解决事件捕获
-可以为 相同的元素绑定多个相同事件并且都会从上到下执行。(正常情况下 同样的事件只会执行最后一个，但事件监听不是)
+优点：
+可以为 相同的元素绑定多个相同事件并且都会从上到下执行。
+(正常情况下 同样的事件只会执行最后一个，但事件监听不是)
+
 
 // 事件监听兼容
 高版本浏览器： addEventListener(事件不加on,事件处理程序,true);
@@ -90,15 +93,16 @@ addEventListener(事件,事件处理程序,true);  // true 代表事件捕获
 ```js
 当一个事件发生时，同样的事件会在父级元素触发，这个过程就是事件冒泡。
 
-并不时所有的事件都会有冒泡： onload onfocus onblur 就不会
+//缺点：
+并不是所有的事件都会有冒泡： onload onfocus onblur 就不会
 
-阻止事件冒泡兼容：
+// 优点：事件委托 => 利用了事件冒泡的原理
+多个相同的元素都需要执行某个事件，将事件添加在元素的父级上，委托父级元素来执行这个事件。 
+
+//阻止事件冒泡兼容：
 	e.stopPropagation ? e.stopPropagation() : e.cancelBubble = true;
-					传播																	取消	泡沫
+				// 传播																  取消	泡沫
 
-// 事件委托 => 利用了事件冒泡的原理
-多个相同的元素都需要执行某个事件，将事件添加在元素的父级上，委托父级元素来执行这个事件。          
-          
 // 事件委托获取目标元素兼容
 e.target || e.srcElement;
 ```

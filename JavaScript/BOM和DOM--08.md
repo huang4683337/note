@@ -1,8 +1,8 @@
-# BOM DOM
+
 
 ## Window 对象（窗口对象）
 
-```shell
+```text
 包括：window对象的属性（window对象的内置对象）
 
 screen（屏幕对象）
@@ -17,7 +17,7 @@ event（事件对象）
 
 ## screen 对象
 
-```shell
+```test
 获取屏幕的宽高
 screen.with / availWidth   // 后者获取的高度不包括电脑工具栏的高度
 screen.height / availHeight 
@@ -27,7 +27,7 @@ screen.height / availHeight
 
 ## scroll 对象
 
-```shell
+```text
 scrollLeft  获取滚动条 水平 方向滚走的距离
 
 scrollTop   获取滚动条 垂直 方向滚走的距离
@@ -57,6 +57,9 @@ div.innerHtml									// 得到标签内部所有的内容 包括标签
 div.outerHtml 								// 得到元素内部以及该元素本身所有的内容
 div.innerText || div.textContent // 得到纯文本数据
 
+```
+
+```html
 <div id="outerHtml">
   <div id="innerHtml">
     <span>innerText</span>
@@ -71,7 +74,7 @@ innerText: innerText
 
 ### 节点种类
 
-```shell
+```text
 html 是 dom 的根节点， 页面上的一切都是节点。
 
 元素节点： 所有的 html 元素
@@ -83,7 +86,7 @@ html 是 dom 的根节点， 页面上的一切都是节点。
 
 ### 节点关系
 
-```shell
+```text
 父节点：parentNode (加样式会影响到子节点，比如给ul添加颜色 li也会改变)
 下一个兄弟节点：nextElementSibling(高版本浏览器)  nextSibling(低版本浏览器 IE678)
 前一个兄弟节点：previousElementSibling
@@ -101,7 +104,7 @@ childNodes：得到元素节点和文本节点的集合 (回车会被当作文�
 
 ### 确定节点类型
 
-```shell
+```text
 通过 nodeType 的值确定节点类型：
 	值为1 是元素节点
 	值为2 是属性节点
@@ -112,7 +115,7 @@ childNodes：得到元素节点和文本节点的集合 (回车会被当作文�
 
 ### 节点的动态操作
 
-```js
+```text
 1、动态创建节点
 document.createElement('div');			// 创建一个元素节点 div
 document.createDocumentFragment()    //创建一个DOM片段
@@ -156,6 +159,6 @@ div.attributes：获取元素身上所有属性构成的集合
 
 
 
-## 重绘
+## 什么是DOM重绘
 
 当render tree中的一些元素需要更新属性，而这些属性只是影响元素的外观，风格，而不会影响布局的，比如background-color。则就叫称为重绘。
