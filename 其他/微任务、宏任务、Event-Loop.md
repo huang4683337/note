@@ -10,7 +10,7 @@ js执行主要经历以下四个：
 
 + JS引擎
 + 浏览器管理模块
-+ 回调队列 / 异步队列
++ 回调队列 / 异步队列 / 任务队列
 + 事件循环（Event-Loop）
 
 
@@ -24,7 +24,7 @@ js执行主要经历以下四个：
 + [Browsing Context](https://link.zhihu.com/?target=https%3A//html.spec.whatwg.org/multipage/browsers.html%23browsing-context) 执行上下文
 + [Worker](https://link.zhihu.com/?target=https%3A//www.w3.org/TR/workers/%23worker)  实现了JS的多线程
 
-
+二者的运行是独立的，也就是说，每一个 JavaScript 运行的"线程环境"都有一个独立的 Event Loop，每一个 Web Worker 也有一个独立的 Event Loop。
 
 
 
