@@ -117,3 +117,12 @@ process.nextTick(Node.js 环境)
 - 宏任务执行完毕后，立即执行当前微任务队列中的所有微任务（依次执行）
 - 当前宏任务执行完毕，开始检查渲染，然后GUI线程接管渲染
 - 渲染完毕后，JS线程继续接管，开始下一个宏任务（从事件队列中获取）
+
+
+
+
+
+[参考地址](https://zhuanlan.zhihu.com/p/78113300)
+
+[参考地址](https://mp.weixin.qq.com/s/bWGjZlBhlIfdSwRDK8XDHQ)
+
