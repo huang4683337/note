@@ -206,13 +206,17 @@ private created() {
     );
   });
 }
+```
+
+
+
 ## vue组件双向绑定 v-model 原理
 
 + `:value`
 
 + `@input`
 
-​```vue
+```vue
 // 通过 :value 将值传入到 input
 // 通过 @input 来改变 value 的值
 ```
