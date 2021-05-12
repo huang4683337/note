@@ -391,7 +391,7 @@ htmlwebpackplugin会在打包结束后，`通过定义到模板`⾃动⽣成⼀�
 
 ```shell
 # 安装 HtmlWebpackPlugin
-$ npm install --save-dev html-webpack-plugin
+$ npm install  html-webpack-plugin@4.5.0 -D
 ```
 
 ```js
@@ -478,7 +478,7 @@ plugins: [
 每次构建之前会清空 dist 目录，避免我们手动删除
 
 ```shell
-$ npm install --save-dev clean-webpack-plugin
+$ npm install  clean-webpack-plugin@3.0.0 -D
 ```
 
 ```js
