@@ -513,34 +513,3 @@ use: [
 ```
 
 
-
-
-
-
-
-## 接第二节 1.34.42 放音乐时间
-
-
-
-- 在 moudule 中配置
-
-  ```js
-  {
-    test: /\.css$/,
-    use:{
-      loader:'xxxx',
-      options:{
-        publicPath:'../'		// 编译后的css文件在 html中引入时会添加 ../+编译后地址
-      }
-    }
-  }
-  ```
-
-  
-
-## 自定义loader
-
-- 写一个自定义 loader
-- 自定义loader处理
-
-
