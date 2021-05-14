@@ -123,7 +123,7 @@ console.log("hello webpack");
 
 ```shell
 # 安装
-$ npm install --save-dev less less-loader less
+$  npm install less less-loader --save-dev
 
 # 用于将 less 转化为 css
 ```
@@ -199,7 +199,7 @@ postcss 对于 css 来说，就行 babel 对于 javaScript 来说
 
 ```shell
 # 安装
-$ npm i postcss postcss-loader -D
+$ npm install  postcss@8.2.0 postcss-loader@4.1.0 -D
 ```
 
 
