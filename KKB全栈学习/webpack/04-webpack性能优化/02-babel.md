@@ -1,70 +1,84 @@
 ## 什么是 Babel
 
-babel - js的编译器
++ js的编译器
 
-- 打补丁： polyfill --> 使低版本浏览器能认识到许多新的特性，比如 promise
++ 可以将 ES6+ 的代码转化成目标版本的代码（例如ES5）， 从此不用担心js兼容的问题
 
-  - 安装在生产环境 npm i polyfill  -S
++ 可以通过插件机制根据需求灵活的扩展
 
-  - core-js: 特性xxxxx
+[Babel 中文网](https://www.babeljs.cn/)
 
-  - .babekrc 文件
-
-    ```js
-    可以将 babel下的 options 放入其中
-    ```
+[Babel 官⽅⽹站](https://babeljs.io/)
 
 
 
--D : 依赖安装到开发环境，例如 sorce-map
+## babel功能
 
--S : 依赖安装到生产环境，部署到服务上使用
-
-
-
-## 配置 react 打包环境
-
-- 支持 jsx
-
-  使用 Presets --> npm install @babel/preset-react
+[Babel 中文网](https://www.babeljs.cn/) ==> 点击菜单设置 ==> 可以看到在各个地方如何使用 babel 构建 ==> 点击 webpack ==> 查看案例
 
 
 
-## 自己编写 plugin
+## babel 使用
 
-- plugin 是通过 new 使用的，证明她是一个类
+### 安装
 
-  在webpack构建的某个阶段去使用
+```shell
+$ npm i babel-loader @babel/core @babel/preset-env -D
+```
 
-- web构建过程分为多个阶段（多个生命周期 | 钩子）
+```shell
+babel-loader: webpack 沟通 babel 的工具
+@babel/core: babel 的核心，相当于一个老板
+```
 
-- 插件基本结构
+```shell
+preset：@babel/core 下的四个员工
 
-  ```js
-  // apply -- 插件的运行方法
-  // compiler -- webpack 对象 -- 可以提供 webpack 钩子
-  ```
+@babel/preset-env : 原生 js 的 es6+ 语法转 es5
+@babel/preset-typescript : ts 语法转 es5
+@babel/preset-react : jsx 语法转 es5
+@babel/preset-flow : flow 语法转 es5
+```
 
-- webpack基本流程
 
-![1606831970771](C:\Users\Amd\AppData\Roaming\Typora\typora-user-images\1606831970771.png)
 
-- Compiler
+### 配置
 
-  ![1606832005945](C:\Users\Amd\AppData\Roaming\Typora\typora-user-images\1606832005945.png)
+**webpack.config.js**
 
-  ![1606832022185](C:\Users\Amd\AppData\Roaming\Typora\typora-user-images\1606832022185.png)
+```js
+{
+    test: /\.js$/,
+    use: {
+        loader: "babel-loader",
+        options: {
+            presets: ["@babel/preset-env"]
+        }
+    }
+}
+```
 
-  ![1606832032609](C:\Users\Amd\AppData\Roaming\Typora\typora-user-images\1606832032609.png)
 
-- 查看 webpack 钩子
 
-  ```js
-  // 根目录下/ index.js
-  ```
+### 测试代码
 
-- 同步钩子，异步钩子
+```js
+// src/index.js
 
-  hooks下同步的钩子通过 top（）触发
+const arr = [new Promise(() => { }), new Promise(() => { })];
+arr.map(item => {
+    console.log(item);
+});
+```
 
-  hooks下异步的钩子通过 topAsync（）触发
+```shell
+发现语法：箭头函数发生了转化
+但是特性： Promise 没有发生改变
+```
+
+
+
+
+
+
+
