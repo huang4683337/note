@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 ## webpack 默认配置
 
 `webpack.config.js` 不存在时，实际上执行的就是以下的配置

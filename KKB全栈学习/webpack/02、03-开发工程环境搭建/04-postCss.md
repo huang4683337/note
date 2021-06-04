@@ -1,7 +1,7 @@
 ## postcss对于css的扩展
 
 ```js
-postcss 对于 css 来说，就行 babel 对于 javaScript 来说
+postcss 对于 css 来说，就像 babel 对于 javaScript 来说
 ```
 
 [postcss官网gitHub](https://github.com/postcss/postcss/blob/master/docs/README-cn.md)

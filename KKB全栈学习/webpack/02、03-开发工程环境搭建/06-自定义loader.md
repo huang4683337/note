@@ -76,7 +76,7 @@ module.exports = function (source) {
 
 ## loader 接收参数
 
-**通过 this 关键字调用 we'bpack 提供的 loader API 接口**
+**通过 this 关键字调用 webpack 提供的 loader API 接口**
 
 ```shell
 webpack官网 https://webpack.js.org/

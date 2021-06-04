@@ -1,5 +1,3 @@
-## polyfill
-
 ### **作用**
 
 打补丁： polyfill （包含所有 ES6+ 新特性的库）
@@ -79,7 +77,6 @@ $ npm run build
 
 ```js
 // 根目录新建.babelrc⽂件，把 options 的值移⼊到该⽂件中
-
 ```
 
 
