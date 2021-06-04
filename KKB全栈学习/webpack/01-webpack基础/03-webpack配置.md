@@ -1,142 +1,3 @@
-## 安装
-
-### 初始化一个 npm 仓库
-
-```shell
-# 初始化一个npm仓库
-$ npm init -y
-```
-
-### 全局安装
-
-全局安装：不推荐
-
-```shell
-# 安装webpack V4+版本时，需要额外安装webpack-cli
-$ npm install webpack webpack-cli -g
-
-# 检查全局安装版本
-$ webpack -v
-
-# 卸载 webpack、webpack-cli
-$ npm uninstall webpack webpack-cli -g
-```
-
-不推荐的原因：全局安装 `webpack`，这会将你项⽬中的 `webpack` 锁定到指定版本，造成不同的项⽬中因为 `webpack` 依赖不同版本⽽导致冲突，构建失败
-
-
-
-
-
-### 局部安装
-
-局部安装（项目安装）：推荐
-
-```shell
-# 安装最新的稳定版本
-$ npm i -D webpack
-
-# 安装指定版本
-$ npm i -D webpack@<version>
-$ npm i -D webpack@4.44.1
-
-# 安装webpack V4+版本时，需要额外安装webpack-cli
-$ npm i -D webpack-cli@3.3.12
-```
-
-是否安装成功
-
-```shell
-# 查看全局安装版本
-$ webpack -v
-
-# 报错：webpck : 无法将“webpck”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。
-
-
-# 默认在全局环境中查找, 我们是在局部安装，所以会报错
-```
-
-```shell
-# 查看局部安装版本
-
-# 方法1
-$ npx webpack -v
-# npx帮助我们在项⽬中的node_modules/.bin ⾥查找webpack,
-# 存在就执行，不存在则自动下载 webpack
-
-# 方法2
-$ ./node_modules/.bin/webpack -v
-# 到当前的node_modules模块⾥指定webpack
-```
-
-
-
-## 执行构建
-
-### 准备构建
-
-```js
-// 根目录下新建src目录 src/index.js
-console.log(' hello webpack ')
-```
-
-
-
-### 执行构建
-
-```shell
-# npm 自带执行命令
-$ npx webpack
-```
-
-```shell
-# package.json 中配置
-
-"scripts": {
- "build": "webpack"
-},
-
-
-# 构建命令
-$ npm run build
-```
-
-```js
-"scripts": {
- "build": "webpack --config ./webpack.xxx.config.js"
-}
-
-// 可以通过添加 --config 来告诉 webpack 使用哪个配置文件
-```
-
-
-
-### 构建结果
-
-```js
-// 根目录下出现 dist 目录
-// dist/main.js
-```
-
-```js
-// 控制台出现警告
-WARNING in configuration
-The 'mode' option has not been set, webpack will fallback to 'production' for this value. Set 'mode' option to 'development' or 'production' to enable defaults for each environment.
-You can also set it to 'none' to disable any default behavior. Learn more: 
-https://webpack.js.org/configuration/mode/
-
-
-// 解决方式 - 根目录新建 webpack.config.js
-const path = require("path");
-module.exports = {
-    mode: "development",
-};
-
-// 执行构建 - 警告消失
-```
-
-
-
 ## webpack 默认配置
 
 `webpack.config.js` 不存在时，实际上执行的就是以下的配置
@@ -167,8 +28,6 @@ module.exports = {
 
 
 ## webpack.config.js 基本属性
-
-
 
 ### entry
 
@@ -261,7 +120,7 @@ module: {
 
 #### 处理样式文件
 
-+ 使用 `css`
+- 使用 `css`
 
   ```js
   // src/index.css
@@ -277,7 +136,7 @@ module: {
   // 报错： Can't resolve 'css-loader'
   ```
 
-+ 安装配置 `css-loader`
+- 安装配置 `css-loader`
 
   ```shell
   # 安装 
@@ -300,13 +159,13 @@ module: {
   $ npm run build
   # 不报错
   ```
-  
+
   ```js
   // dist/main.js --> 搜索 background
   // 发现 css 编译到 main.js 中了
   ```
 
-+ 查看是否成功
+- 查看是否成功
 
   ```html
   <!-- dist 下新建 index.html -->
@@ -317,7 +176,7 @@ module: {
 
 **没有看到整个页面变成红色，F12 查看也没有对应样式，竟然不胜生效 ！！！！**
 
-+ 安装配置 `style-loader`
+- 安装配置 `style-loader`
 
   ```shell
   $ npm install style-loader -D-S 
@@ -332,6 +191,7 @@ module: {
       }
     ]
   },
+  
   ```
 
 
@@ -363,6 +223,7 @@ module: {
     }
   ]
 },
+
 ```
 
 
@@ -381,6 +242,7 @@ module: {
 	这时我们发现，dist下同时存在 main.js、index.js，
 	我们期望只有 index.js的存在，但是 webpack并没有此功能，
 	所以我们需要一个插件来自动删除上一次打包的结果。 这就是plugins的作用  
+
 ```
 
 
@@ -391,7 +253,8 @@ htmlwebpackplugin会在打包结束后，`通过定义到模板`⾃动⽣成⼀�
 
 ```shell
 # 安装 HtmlWebpackPlugin
-$ npm install --save-dev html-webpack-plugin
+$ npm install  html-webpack-plugin@4.5.0 -D
+
 ```
 
 ```js
@@ -400,9 +263,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 plugins: [
   new HtmlWebpackPlugin()
 ]
+
 ```
 
-+ 配置
+- 配置
 
   ```js
   title: ⽤来⽣成⻚⾯的 title 元素
@@ -421,11 +285,12 @@ plugins: [
   chunksSortMode: 允许控制块在添加到⻚⾯之前的排序⽅式，⽀持的值：'none' | 'default' |
   {function}-default:'auto'
   excludeChunks: 允许跳过某些块，(⽐如，跳过单元测试的块)
+  
   ```
 
 
 
-+ HtmlWebpackPlugin 配置多入口文件打包时，可以通过chunks配置当前文件自动引入那些css
+- HtmlWebpackPlugin 配置多入口文件打包时，可以通过chunks配置当前文件自动引入那些css
 
   ```js
   // a.js
@@ -467,6 +332,7 @@ plugins: [
   // 去掉 chunks 注释
   // a.html 只引入了 a.css
   // index.html 只引入了 index.css
+  
   ```
 
 
@@ -478,7 +344,8 @@ plugins: [
 每次构建之前会清空 dist 目录，避免我们手动删除
 
 ```shell
-$ npm install --save-dev clean-webpack-plugin
+$ npm install  clean-webpack-plugin@3.0.0 -D
+
 ```
 
 ```js
@@ -487,6 +354,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 plugins: [
  new CleanWebpackPlugin()
 ]
+
 ```
 
 

@@ -41,6 +41,12 @@ server.listen(3000, ()=>{
 } )
 ```
 
+**启动**
+
+```shell
+$ node index.js
+```
+
 
 
 ###  2.2、响应

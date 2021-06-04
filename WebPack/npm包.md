@@ -56,6 +56,11 @@ $ npm publish   # 向npm发布自己的包  我们需要去npm官网创建自己
 $ npm view 包的名字 versions	# 查看某个包所有版本
 ```
 
+```js
+-D | --dev : 开发环境，只有在本地服务才能使用
+-S | --save : 生产环境，会被打包到 build 文件中，在远程服务上也能使用下载的 node_modules 的包
+```
+
 
 
 ## 5、淘宝镜像的安装
