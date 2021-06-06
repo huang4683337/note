@@ -1,5 +1,3 @@
-## 起步
-
 ### 1. 文档
 
 [art-tempalte 官方文档](http://aui.github.io/art-template/zh-cn/docs/)
