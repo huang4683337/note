@@ -16,3 +16,4 @@ console.log(window.a);	// undefined
 
 ## 为什么 ES6 中定义的变量不能在 window 下找到
 
+ES6 中的 let 、const 声明不在属于顶级对象
