@@ -39,6 +39,8 @@ export default create;
 
 ## 全局挂载方法
 
+**当作插件挂载再全局**
+
 ```js
 import Notice from '@/components/create.vue'
 //... 

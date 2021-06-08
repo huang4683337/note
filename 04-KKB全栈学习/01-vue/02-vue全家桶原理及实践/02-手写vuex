@@ -1,0 +1,469 @@
+## vuex
+
+Vuex **集中式**存储管理应用的所有组件的状态，并以相应的规则保证状态以**可预测**的⽅式发⽣变化。
+
+![1623133053680](C:\Users\Amd\AppData\Roaming\Typora\typora-user-images\1623133053680.png)
+
+**安装vuex**
+
+```shell
+$ vue add vuex
+```
+
+
+
+## 核心概念
+
++ state 状态、数据
+
+  ```
+  state保存应⽤状态
+  ```
+
+  ```js
+  export default new Vuex.Store({
+   	state: { counter:0 },
+  })
+  ```
+
+  ```js
+  // 派⽣状态 - getters: 从state派⽣出新状态，类似计算属性
+  
+  export default new Vuex.Store({
+   	getters: {
+   		doubleCounter(state) { // 计算剩余数量
+   			return state.counter * 2;
+   		}
+   	}
+  })
+  ```
+
++ mutations 更改状态的数据
+
+  ```
+  mutations⽤于修改状态，store.js
+  ```
+
+  ```js
+  export default new Vuex.Store({
+   	mutations: {
+   		add(state) {
+   			state.counter++
+   		}
+   	}
+  })
+  ```
+
++ actions 异步操作
+
+  ```
+  添加业务逻辑，类似于controller
+  ```
+
+  ```js
+  export default new Vuex.Store({
+   	actions: {
+   		add({ commit }) {
+   			setTimeout(() => {
+  				commit('add')
+   			}, 1000);
+   		}
+   	}
+  })
+  ```
+
++ store 包含以上概念的容器
+
+
+
+**测试代码**
+
+```vue
+<p @click="$store.commit('add')">counter: {{$store.state.counter}}</p>
+<p @click="$store.dispatch('add')">async counter: {{$store.state.counter}}</p>
+<p>double：{{$store.getters.doubleCounter}}</p>
+```
+
+
+
+## 需求分析
+
++ 实现一个插件：声明 store 类，挂载 $store
++ store 具体实现
+  + 创建响应式的 state，保存 mutations、actions 和 getters
+  + 实现 commit 根据用户传入 type 执行对应 mutation
+  + 实现 dispatch 根据用户传入 type 执行对应 action，同时传递上下文
+  + 实现 getters，按照 getters 定义对 state 做派⽣
+
+
+
+## 功能实现
+
+```
+- 1、实现一个 Vuex 插件
+- 2、实现一个 Store 类
+	- 2-1、响应式数据 state 
+	- 2-2、commit() 实现
+	- 2-3、dispatch() 实现
+- 3、挂载到 Vue.prototype
+```
+
+
+
+## 目录结构
+
+```
+|- src
+	|- kstore
+		- index.js
+		- kvuex.js
+```
+
+
+
+**kstore/index.js**
+
+```js
+import Vue from 'vue'
+import Vuex from './kvuex'
+
+Vue.use(Vuex)
+
+export default new Vuex.Store({
+  state: {
+    counter: 0
+  },
+  mutations: {
+    add(state) {
+      state.counter++
+    }
+  },
+  actions: {
+    add({ commit }) {
+      setTimeout(() => {
+        commit('add')
+      }, 1000);
+    }
+  },
+  getters: {
+    doubleCounter(state) { // 计算剩余数量
+      return state.counter * 2;
+    }
+  },
+})
+```
+
+
+
+**main.js**
+
+```js
+import store from './kstore'
+new Vue({
+  store,
+  render: h => h(App)
+}).$mount('#app')
+```
+
+
+
+## 创建 store 插件壳子
+
+```
+kstore/index.js 文件
+```
+
+```js
+class Store {
+    constructor() {
+
+    }
+}
+
+function install() {
+
+}
+
+export default { Store, install }
+```
+
+```
+- 因为使用 vuex 时，new Vuex.Store()
+- 所以不能 Store.install(); export default Store;
+- 我们需要导出一个对象 export default { Store, install }
+```
+
+
+
+## vue 下挂载 $store
+
+```
+kstore/index.js 文件
+```
+
+```js
+let Vue;
+class Store {
+    constructor() { }
+}
+
+function install(_Vue) {
+    Vue = _Vue;
+
+    Vue.mixin({
+        beforeCreate() {
+            // 如果 new Vue({store}) 
+            // 已经将 store 挂载在根实例了
+            // 那么将它挂载到 Vue 原型上
+            if (this.$options.store) {
+                Vue.prototype.$store = this.$options.store;
+            }
+        }
+    })
+}
+
+export default { Store, install }
+```
+
+**检测**
+
+```js
+// vue 组件中打印
+created() {
+  console.log(this.$store); // Store {}
+}
+```
+
+
+
+
+
+## 响应式数据 state - 借鸡生蛋的方式实现
+
+```
+kstore/index.js 文件 constructor 里
+```
+
+```js
+class Store {
+    constructor(options) {
+        // 响应数据 state, 使用借鸡生蛋的方式
+        this.state = new Vue({
+            data: {
+                state: options.state
+            }
+        })
+    }
+}
+```
+
+直接暴露出 state 是不安全的，所以将 state  隐藏起来。访问时需要做一下代理
+
+```js
+class Store {
+    constructor(options) {
+        // 出于安全考虑
+        this._vm = new Vue({
+            data: {
+                $$state: options.state
+            }
+        })
+    }
+    get state() {
+        return this._vm._data.$$state;
+    }
+    set state(v) {
+        console.error('不允许直接修改 state');
+    }
+}
+```
+
+
+
+**检测**
+
+```js
+// vue 组件中打印
+created() {
+  console.log(this.$store); // Store {_vm: Vue}
+}
+```
+
+
+
+## commit 的实现
+
+```js
+export default new Vuex.Store({
+ 	mutations: {
+ 		add(state) {
+ 			state.counter++
+ 		}
+ 	}
+})
+```
+
+```
+- commit.xx 实际上就是执行 mutations 里的 xx
+- 然后将 state 作为参数传递给 xx
+```
+
+
+
+**具体实现**
+
+```js
+kstore/index.js 文件 constructor 里
+```
+
+```js
+// 保存 mutations
+this._mutations = options.mutations;
+
+// ......
+
+// 当使用 actions 时，会通过 commit 修改数据
+// 但是调用者不确定，那么 this 指向会发生改变
+this.commit = this.commit.bind(this);
+```
+
+```
+kstore/index.js 文件 Sotre 类里
+```
+
+```js
+commit(type, payLoad) {
+    const entry = this._mutations[type];
+
+    if (!entry) {
+        console.error('mutations 不存在此方法');
+      	return;
+    }
+    // 指定上下文 this.state
+    entry(this.state, payLoad);
+}
+```
+
+**检测**
+
+```vue
+<!-- 组件中添加 -->
+<p @click="$store.commit('add')">counter: {{$store.state.counter}}</p>
+```
+
+```
+调用 this.$store.commit('add') 正常
+```
+
+
+
+## dispatch 的实现
+
+```
+kstore/index.js 文件 constructor 里
+```
+
+```js
+// 保存 actions
+this._actions = options.actions;
+
+// ......
+
+// 绑定 this 指向
+this.dispatch = this.dispatch.bind(this);
+```
+
+```
+kstore/index.js 文件 Sotre 类里
+```
+
+```js
+dispatch(type, payLoad) {
+    const entry = this._actions[type];
+
+    if (!entry) {
+        console.error('actions 不存在此方法');
+        return;
+    }
+
+    // 指定上下文 store 实例
+    return entry(this, payLoad);
+}
+```
+
+
+
+**检测**
+
+```vue
+<!-- 组件中添加 -->
+<p @click="$store.dispatch('add')">async counter: {{$store.state.counter}}</p>
+```
+
+```
+调用 this.$store.dispatch('add') 正常
+```
+
+
+
+## getters 实现
+
+```
+kstore/index.js 文件 constructor 里
+```
+
+```js
+// 保存 getters
+this._wrappedGetters = options.getters;
+
+// 定义 commputed 选项
+// computed:{ foo(){retrun a+b} }
+const computed = {};
+
+this.getters = {};
+
+// 保存 this 
+const store = this;
+
+// getters:{doubleCounter(state){return xx}}
+Object.keys(this._wrappedGetters).forEach(key => {
+    // 获取用户定义的 getter
+    const fn = store._wrappedGetters[key];
+    // 转换为 computed 可以使用的无参数形式
+    computed[key] = function () {
+        return fn(store.state);
+    }
+    // 为 getter 定义只读属性
+    Object.defineProperty(store.getters, key, {
+        get: () => store._vm[key]
+    })
+})
+```
+
+```
+kstore/index.js 文件 constructor 里
+添加 computed 响应属性
+```
+
+```js
+this._vm = new Vue({
+    data: {
+        $$state: options.state
+    },
+    computed: computed
+})
+```
+
+
+
+**检测**
+
+```vue
+<!-- 组件中添加 -->
+<p>double：{{$store.getters.doubleCounter}}</p>
+```
+
+```
+调用 this.$store.getters.doubleCounter 正常
+```
+

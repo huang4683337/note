@@ -610,7 +610,7 @@ const mid = async(ctx, next)=>{
 
 
 
-### Koa-router
+### Koa-router（策略模式）
 
 ```js
 if(i=='a'){}
