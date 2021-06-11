@@ -149,7 +149,7 @@ console.log(b.user)
 
 
 
-### 箭头函数
+## 箭头函数this指向
 
 
 ```js

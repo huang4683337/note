@@ -39,11 +39,11 @@ function fn(evt){
 
 ## 鼠标事件的对象参数
 
-```js
-clientX / clientY ： 距离 window 窗口（网页可视区）的坐标
-pageX / pageY ：距离文档窗口的坐标（不算滚动条）
-offsetX / offsetY ：相对于父级的坐标
-screenX / screenY ：距离显示器屏幕的坐标
+```
+- screenX / screenY ：距离显示器屏幕的坐标
+- clientX / clientY ： 距离 window 窗口（网页可视区）的坐标
+- pageX / pageY ：距离文档窗口的坐标（不算滚动条）
+- offsetX / offsetY ：相对于父级的坐标
 ```
 
 
@@ -77,13 +77,34 @@ addEventListener(事件,事件处理程序,true);  // true 代表事件捕获
 
 // 通过 事件监听 的方法解决事件捕获
 优点：
-可以为 相同的元素绑定多个相同事件并且都会从上到下执行。
+可以为 一个元素绑定多个相同事件（click）并且都会从上到下执行。
 (正常情况下 同样的事件只会执行最后一个，但事件监听不是)
 
 
 // 事件监听兼容
 高版本浏览器： addEventListener(事件不加on,事件处理程序,true);
 低版本浏览器： attachEvent(事件必须加on,事件处理程序)
+```
+
+```js
+var dom = document.querySelector('.div');
+dom.onclick = function(){
+  alert(1)	// 不执行
+}
+dom.onclick = function(){
+  alert(2)	// 执行
+}
+```
+
+```js
+dom.addEventListener('click',fn1);
+dom.addEventListener('click',fn2);
+var fn1 = function(){
+  alert(1)	// 执行
+}
+var fn2 = function(){
+  alert(2)	// 执行
+}
 ```
 
 

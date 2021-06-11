@@ -1,5 +1,3 @@
-# css面试题
-
 ## css3的选择器有哪几种
 
 [掘金选择器优先级](https://juejin.im/post/5be3d07be51d457d4932b043)
@@ -52,14 +50,57 @@ IE中 box-sizing: border-box
 }
 ```
 
+
+
+## vertical-align(垂直对齐)
+
+用来设置行内元素的**垂直对齐**方式
+
+**具体属性值和基线有关**
+
+
+
+```html
+<div id="app">
+    <img src="./f2d617095d24d039d2290777bc85159.jpg" alt="">
+    <span></span>
+</div>
+```
+
+```css
+#app {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    background-color: red;
+    text-align: center;
+}
+
+span{
+    /* width: 0; */
+    height: 100px;
+    display: inline-block;
+    vertical-align: middle;
+}
+img {
+    width: 50px;
+    height: 50px;
+    vertical-align: middle;
+}
+```
+
+
+
+
+
 ## margin-top 不生效的解决方法
 
-```js
-给父元素添加 边框
-给父元素添加 overflow:hidden;
-给父元素添加 pading
-给父元素添加 float
-给自身添加 float
+```
+- 给父元素添加 边框
+- 给父元素添加 overflow:hidden;
+- 给父元素添加 float
+- 给父元素添加 pading
+- 给自身添加 float
 ```
 
 
@@ -67,11 +108,12 @@ IE中 box-sizing: border-box
 ## 清除浮动
 
 ```css
-给父元素添加 overflow: hidden
-给父元素添加 overflow: auto
-给父元素添加 高
+- 给父元素添加 overflow: hidden
+- 给父元素添加 overflow: auto
+- 元素添加 高
+- clear: both
 
-使用clear: both
+
 .clearfix:after {
     content: '.';
     height: 0;
@@ -84,13 +126,13 @@ IE中 box-sizing: border-box
 
 
 
-## 定位
+## 定位 position
 
 ```css
 static /* 默认的 */
-relative /* 相对定位：相对于自身产生位移 */
+relative /* 相对定位：相对于自身没定位之前产生位移 */
 absolute /* 绝对定位：相对于离自己最近的已定位的祖先元素 */
-fixed /* 固定在某个区域 */
+fixed /* 相对于浏览器窗口固定在某个区域 */
 
 /* 定位后可通过 z-index 来调整层叠顺序 */
 ```
@@ -104,11 +146,13 @@ fixed /* 固定在某个区域 */
 div,dl,dt,dd,ol,ul,(h1-h6),p,form,hr,table,tr,td
 默认情况下块元素独占一行，自上而下排列。
 块元素都可以定义自己的宽高
+可以换行
 
 // 内联元素（行内元素）
 a,span,i,em,strong,b，img，input
-在行内逐个显示，子左向右。
+在行内逐个显示，自左向右。
 没有自己的宽高，给padding会变大 且互相遮住
+margin-top、margin-bottom 无效
 
 // 可变元素
 通过 display 来设置，一共有18个属性。
@@ -126,6 +170,8 @@ Ul{text-align:center}
 Li{display:inline-block}
 ```
 
+
+
 ### 单行居中多行靠左
 
 ```css
@@ -133,6 +179,8 @@ Li{display:inline-block}
 
 .all div{display:inline-block;text-align:left;}
 ```
+
+
 
 ### 图片垂直居中
 
@@ -144,11 +192,13 @@ Span{hieght:100%;width:0; vertical-align:middle;display:inline-block;}
 
 
 
-## display 和 visibility
+## 隐藏元素：display 、visibility、opacity
 
 ```css
 display: hidden; /* 后代元素跟着隐藏；不占页面空间；引起DOM重新渲染和回流 */
 visibility: hidden; /* 隐藏自身；继续占页面空间； 不会引起DOM渲染和回流 */
+
+opacity:0; /* 设置透明，元素依旧占用页面空间 */
 ```
 
 
@@ -167,10 +217,15 @@ Blink: Google		  =>
 
 ## css Bug、css Hack、Filter
 
-```js
+```
 css Bug: css 在不同浏览器中的解析不一致
 css Hack: 兼容 css 在不通浏览器显示的方法
 Filter: 对特定的浏览器使用特定的方式解决兼容问题
+
+```
+
+
+
 ## css 实现可配置换行
 
 ```html
@@ -215,3 +270,16 @@ p{
 }
 ```
 
+
+
+## 回流和重绘
+
++ 回流（reflow）
+
+  元素的大小、布局、隐藏等发生改变时引起页面的重新构建
+
++ 重绘（）
+
+  改变元素的外观、风格、颜色等。
+
+回流必将引起重绘，重绘不会引起回流。

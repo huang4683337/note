@@ -167,23 +167,3 @@ $ yarn dev
 
 
 
-## 源码入口分析
-
-### 通过 package.json 来分析打包
-
-dev 对应的就是 scripts/dev.js 文件
-
-。。。
-
-
-
-### 分析出整个配置来自于 rollup 的配置文件
-
-> rollup 的配置文件 rollup.config.js
-
-
-
-## rollup.config.js 分析出入口文件
-
-> 入口文件为 packages\vue\src\index.ts
-

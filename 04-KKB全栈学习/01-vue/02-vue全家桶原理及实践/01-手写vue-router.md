@@ -179,7 +179,7 @@ KVueRouter.install = function (_Vue) {
         beforeCreate() {
             // 此时 this 已经指向 Vue 实例了
             // 因为全局混入在任何组件中都会执行
-            // 如果 vue 根实例上存在 router
+            // 如果 this.$options.router 为真
             // 证明 new Vue({ router }) 已经挂载在根实例了
             if (this.$options.router) {
                 Vue.prototype.$router = this.$options.router;

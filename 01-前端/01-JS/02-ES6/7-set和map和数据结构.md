@@ -172,7 +172,9 @@ ws.has(obj);
 
 ## Map 数据结构
 
-> 传统的字符串只能用字符串当作键。在Map结构中任何数据类型都可以当作键来使用。
+> 传统的字符串只能用字符串当作键。
+>
+> 在Map结构中任何数据类型都可以当作键来使用。
 
 
 
@@ -301,4 +303,126 @@ let map = new Map()
   .set(2, 'b')
   .set(3, 'c');
 ```
+
+
+
+## WeakMap
+
+### 只接收对象作为键名
+
+```js
+const map = new WeakMap();
+map.set(1, 2);
+// TypeError: Invalid value used as weak map key
+map.set(null, 2);
+// TypeError: Invalid value used as weak map key
+```
+
+
+
+### WeakMap 的键名所引用的对象是弱引用
+
+> 一个对象若只被弱引用所引用，则被认为是不可访问（或弱可访问）的，并因此可能在任何时刻被回收。
+
+
+
+JavaScript 中一般创建的对象都是强引用
+
+```js
+const obj = new Object();
+```
+
+只有当我们手动设置 `obj = null` 的时候，才有可能回收 obj 所引用的对象。
+
+
+
+```js
+let map = new Map();
+let key = new Array(5 * 1024 * 1024);
+
+// 建立了 map 对 key 所引用对象的强引用
+map.set(key, 1);
+// key = null 不会导致 key 的原引用对象被回收
+key = null;
+
+// 这是因为 map 中还存在着对于 new Array(5 * 1024 * 1024) 的强引用
+```
+
+
+
+```js
+const wm = new WeakMap();
+let key = new Array(5 * 1024 * 1024);
+wm.set(key, 1);
+key = null;
+// key = null 时
+// 就只有 wm 对 new Array(5 * 1024 * 1024); 进行了弱引用
+// 下次垃圾回收机制执行时，该引用对象就会回收
+```
+
+
+
+## WeakMap应用
+
+### DOM对象上保存相关数据
+
+```js
+let wm = new WeakMap(), element = document.querySelector(".element");
+wm.set(element, "data");
+
+let value = wm.get(elemet);
+console.log(value); // data
+
+element.parentNode.removeChild(element);
+element = null;
+```
+
+
+
+### 数据缓存
+
+我们需要关联对象和数据，比如在不修改原有对象的情况下储存某些属性或者根据对象储存一些计算的值等，而又不想管理这些数据的死活时非常适合考虑使用 WeakMap。数据缓存就是一个非常好的例子
+
+```js
+const cache = new WeakMap();
+function countOwnKeys(obj) {
+    if (cache.has(obj)) {
+        console.log('Cached');
+        return cache.get(obj);
+    } else {
+        console.log('Computed');
+        const count = Object.keys(obj).length;
+        cache.set(obj, count);
+        return count;
+    }
+}
+```
+
+
+
+### 私有属性
+
+WeakMap 也可以被用于实现私有变量，不过在 ES6 中实现私有变量的方式有很多种，这只是其中一种：
+
+```js
+const privateData = new WeakMap();
+
+class Person {
+    constructor(name, age) {
+        privateData.set(this, { name: name, age: age });
+    }
+
+    getName() {
+        return privateData.get(this).name;
+    }
+
+    getAge() {
+        return privateData.get(this).age;
+    }
+}
+
+export default Person;
+```
+
+
 
