@@ -82,6 +82,7 @@ I/O
 UI交互事件
 postMessage
 MessageChannel
+requestAnimationFrame(浏览器环境)
 setImmediate(Node.js 环境)
 ```
 
@@ -100,9 +101,8 @@ setImmediate(Node.js 环境)
 **微任务包含：**
 
 ```text
-Promise.then
-Object.observe
-MutaionObserver
+Promise.then、Promise.catch 、Promise.finally
+MutaionObserver(浏览器环境)
 process.nextTick(Node.js 环境)
 ```
 

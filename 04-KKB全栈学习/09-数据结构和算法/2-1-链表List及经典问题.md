@@ -434,7 +434,7 @@ var rotateRight = function (head, k) {
 // cur.next = pre;
 // temp.next = cur;
 // 4 - temp 后移动两位, 继续交换, temp = pre;
-// 5 - 只要 temp.next 和 temp.next.netxt 存在就一直交换
+// 5 - 只要 temp.next 和 temp.next.nett 存在就一直交换
 ```
 
 ```js
