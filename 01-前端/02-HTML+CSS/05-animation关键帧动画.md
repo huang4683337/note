@@ -1,5 +1,3 @@
-#animation动画
-
 ## 什么是 animation
 
 > animation则是通过关键帧@keyframes来实现更为复杂的动画效果
