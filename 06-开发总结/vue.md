@@ -1,4 +1,4 @@
-## vue - H5 中长按显示弹出层
+## 1、vue - H5 中长按显示弹出层
 
 ```js
 // 绑定 touchstart touchend 事件
@@ -45,7 +45,7 @@ private touchEnd(e,item){
 
 
 
-## vue 中 @touchstart 、 @touchend、@click 冲突问题 
+## 2、vue 中 @touchstart 、 @touchend、@click 冲突问题 
 
 ```js
 // 使用 @touchend.prevent 代替 @click
@@ -58,7 +58,7 @@ private touchEnd(e,item){
 
 
 
-## Vue 如何在事件中将 Event 传入
+## 3、Vue 如何在事件中将 Event 传入
 
 ```js
 <div v-for="(item,index) in list" @click="goDetail($event,item)">
@@ -72,7 +72,7 @@ goDetail(e, item){
 
 
 
-## vue 图片动态路径不生效
+## 4、vue 图片动态路径不生效
 
 ```html
  <img :src="require(`@/assets/images/list/${key.icon}`)"  alt=""  srcset="" />
@@ -80,7 +80,7 @@ goDetail(e, item){
 
 
 
-## 手写复选框
+## 5、手写复选框
 
 ```less
 // 复选框
@@ -127,7 +127,7 @@ goDetail(e, item){
 
 
 
-## 服务端请求JSON
+## 6、服务端请求JSON
 
 **场景：**开发过程中有些需求是通过动态配置 JOSN 文件来实现某种功能，但是在打包之后 JSON 文件内容会被编译到引用的文件中，这样在服务端修改可配置的 JSON 是不生效的。
 
@@ -186,7 +186,7 @@ export { isDefaultPanel, isPanelInitData, isAllPanel }
 
 
 
-## vue 中刷新页面时保存store中的数据
+## 7、vue 中刷新页面时保存store中的数据
 
 + 获取到 store 的数据时，直接存在 `sessionStorage` 中，那么这样毫无意义，我们为什么不直接将数据存入到`sessionStorage` 中呢。
 + 通过一个方法监听浏览器的刷新，当浏览器刷新时，我们将需要的数据存入到 `sessionStorage` 中。
@@ -210,7 +210,7 @@ private created() {
 
 
 
-## vue组件双向绑定 v-model 原理
+## 8、vue组件双向绑定 v-model 原理
 
 + `:value`
 
@@ -229,7 +229,7 @@ private created() {
 
 
 
-## vue使用slot时，子组件如何调用父组件方法
+## 9、vue使用slot时，子组件如何调用父组件方法
 
 ```vue
 // parent
@@ -239,5 +239,70 @@ private created() {
 
 // child
 this.$parent.$on('父组件方法名')
+```
+
+
+
+
+
+## 10、input 输入框校验
+
+```html
+<el-input v-model="money" @input.native="input"></el-input>
+```
+
+```js
+input(e){
+	let value = e.target.value;	// 用于获取到 input 值改变时的值
+  
+  // 只能输入数字和小数点后两位
+  e.target.value = value.match(/^d*(\.?\d{0,2})/g)[0] || null;
+}
+```
+
+== 注意：==
+
++ 在有的版本中的 vue 中，事件需要添加 `.native` 修饰符
+
++ 想要获取到输入框数据可以通过 `e.target.value` 来得到
+
+
+
+
+
+## 11、vue-cli开发环境和生产环境分别如何使用全局常量
+
+```javascript
+/*
+开发环境的全局常量定义在.env里，
+生产环境的全局常量定义在.env.production里
+*/
+
+config文件中
+/*
+  创建普通全局变量 .env
+  创建开发环境变量 .env.development
+  创建生产环境变量 .env.production
+*/
+```
+
+
+
+## 12、解决非工程化项目初始化页面闪动问题
+
+[vue](https://www.baidu.com/s?wd=vue&tn=24004469_oem_dg&rsv_dl=gh_pl_sl_csd)页面在加载的时候闪烁花括号{}}，v-cloak指令和css规则如[v-cloak]{display:none}一起用时，这个指令可以隐藏未编译的Mustache标签直到实例准备完毕。
+
+```
+/*css样式*/
+[v-cloak] {
+	display: none;
+}
+
+<!--html代码-->
+<div id="app" v-cloak>
+    <ul>
+      <li v-for="item in tabs">{{item.text}}</li>
+    </ul>
+</div>
 ```
 

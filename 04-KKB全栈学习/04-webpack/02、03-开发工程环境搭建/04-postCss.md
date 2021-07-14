@@ -99,7 +99,7 @@ body{
 [ browserslist - 样式自动添加前缀](https://caniuse.com/)
 
 ```js
-查看本节04教程
+查看本节05教程
 ```
 
 

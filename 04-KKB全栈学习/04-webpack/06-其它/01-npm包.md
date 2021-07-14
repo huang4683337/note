@@ -76,7 +76,7 @@ $ npm config set registry https://registry.npm.taobao.org
 
 # 验证 npm 淘宝镜像 是否安装成功
 $ npm config list
-$ npm config get registry  
+$ npm config get registry 
 
 ```
 
