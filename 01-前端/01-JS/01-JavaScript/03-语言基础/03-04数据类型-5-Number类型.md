@@ -87,3 +87,90 @@ console.log(isFinite(Infinity));	// false
 
 
 ## Number() 
+
+将**任何类型**强制转换成  **十进制**  数字类型
+
+| 数据类型  | 转化方式                                                     | 转化结果            |
+| --------- | ------------------------------------------------------------ | ------------------- |
+| Undefined | Number( undefined )                                          | NaN                 |
+| Null      | Number( null )                                               | 0                   |
+| Boolean   | Number( true \| fales )                                      | 1\|0                |
+| Number    | Number( 1 )                                                  | 直接返回            |
+| String    | Number( ' ' \| '12' \| '12s' \| '0xf' )                      | 0 \| 12 \| NaN \|15 |
+| Object    | 先试用  *valueOf()*  按照前面 5 类数据处理。如果返回 *NaN* 则再次调用 *toString()* 按照字符串规则转换 `变量.valueOf()|变量.valueOf().toString()` |                     |
+
+
+
+## parseInt(xx, 进制)
+
+字符串转数值，默认按照 **十进制** 转数值。通过设置**第二个参数**规定按照 **什么进制** 去将字符串转数字。
+
++ 从第一个非空字符开始解析
+
++ 遇到非数值字符停止解析
+
++ 第一个字符不是数值字符，直接返回 NaN
+
+  `+数字`、`-数字` 的情况除外
+
+```js
+// 从第一个非空字符开始解析
+console.log(parseInt('     1'));	// 1
+```
+
+```js
+// 遇到非数值字符停止解析
+console.log(parseInt('12+s'));  // 12
+
+// 利用遇到非数值字符停止解析的特性，可以对数字进行取整操作
+console.log(parseInt(12.11111)); // 12
+```
+
+```js
+// 第一个字符不是数值字符，直接返回 NaN
+console.log(parseInt('+')); // NaN
+console.log(parseInt(''));	// Nan
+
+// 第一位为 +/- 随后紧跟数值字符
+console.log(parseInt('+1')); // 1
+```
+
+
+
+**规定通过什么进制去解析**
+
+```js
+let num1 = parseInt("10", 2); // 2，按二进制解析 
+let num2 = parseInt("10", 8); // 8，按八进制解析 
+let num3 = parseInt("10", 10); // 10，按十进制解析 
+let num4 = parseInt("10", 16); // 16，按十六进制解析
+```
+
+
+
+## parseFloat(xx)
+
+**只能**将字符串按照**十进制**转化。
+
++ 从第一个非空字符开始解析
++ 遇到除了 第一个点 以外的 非数值 字符停止解析
+
++ 第一个字符不是数值字符，直接返回 NaN
+
+  `+数字`、`-数字` 的情况除外
+
+```js
+// 从第一个非空字符开始解析
+console.log(parseFloat('    11.1')); // 11.1
+```
+
+```js
+// 遇到除了 第一个点 以外的 非数值 字符停止解析
+console.log(parseFloat('11.1.2.3.4')); // 11.1
+console.log(parseFloat('11ss1.1.1')); // 11
+```
+
+```js
+console.log(parseFloat('3.125e7'));	// 31250000
+```
+
