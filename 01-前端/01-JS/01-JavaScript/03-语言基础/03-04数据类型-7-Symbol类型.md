@@ -232,13 +232,13 @@ console.log(obj[o.iterator]());	// { a: 1 }
 
 ## 5、Symbol.asyncIterator
 
-使用`Symbol.asyncIterator` 作为属性时，该属性对应的方法会返回对象默认的 ` AsyncIterator`，由 **for-await-of** 语句使用。换句话说，这个符号表示实现异步迭代器 API 的函数
+使用`Symbol.asyncIterator` 作为属性时，该属性表示一个方法，对应的方法会返回对象默认的 ` AsyncIterator`，由 **for-await-of** 语句使用。换句话说，这个符号表示实现异步迭代器 API 的函数
 
 
 
 ## 6、Symbol.hasInstance
 
-使用`Symbol.hasInstance` 作为属性时，该属性对应的方法决定一个构造器对象是否认可一个对象是它的实例。由 instanceof 使用
+使用`Symbol.hasInstance` 作为属性时，该属性表示一个方法，对应的方法决定一个构造器对象是否认可一个对象是它的实例。由 instanceof 使用
 
 ```js
 function Foo() {}
@@ -246,26 +246,116 @@ let f = new Foo();
 ```
 
 ```js
-// ES5 中
+// ES5 中, instanceof 判断实例的原型链上是否存在某个原型
 conosle.log( f instanceof Foo ); // true
 
 // ES6 中 instanceof 会使用 Symbol.hasInstance 确定关系
-console.log(Foo[Symbol.hasInstance](f))
+console.log(Foo[Symbol.hasInstance](f));	// true
 ```
-
-
 
 
 
 ## 7、Symbol.isConcatSpreadable
 
+使用`Symbol.isConcatSpreadable` 作为属性时，该属性表示一个布尔值，如果是 true，则对象应该使用 `Array.prototype.concat()` 根据接收到的对象类型选择如何将一个类数组对象拼接成一个数组实例。
+
+
+
+```js
+let initial = ['foo'];
+let array = ['bar'];
+let similarArr = { length: 1, 0: 'baz' };
+let otherObject = new Set().add('qux');
+```
+
+
+
+**默认情况下，数组对象、类数组对象、其他对象**
+
+```js
+// 普通数组，默认打平到已有数组	 - 打平
+console.log(array[Symbol.isConcatSpreadable]);  // undefined
+console.log(initial.concat(array)); // [ 'foo', 'bar' ]
+
+// 类数组对象，默认将整个对象添加到末尾 - 整个对象
+console.log(similarArr[Symbol.isConcatSpreadable]); // undefined
+console.log(initial.concat(similarArr));    // [ 'foo', { '0': 'baz', length: 1 } ]
+
+// 其他对象，默认将整个对象添加到末尾 - 整个对象
+console.log(array[Symbol.otherObject]); // undefined
+console.log(initial.concat(otherObject));   // [ 'foo', Set(1) { 'qux' } ]
+```
+
+
+
+**值为 false 或者 假值时，数组对象、类数组对象、其他对象**
+
+```js
+// 普通数组，将整个对象添加到数组末尾 - 整个对象
+array[Symbol.isConcatSpreadable] = false;
+console.log(initial.concat(array)); 
+// ['foo',Array(1)] ==> [ 'foo', [ 'bar', [Symbol(Symbol.isConcatSpreadable)]: false ] ]
+
+
+// 类数组对象，整个对象添加到数组末尾 - 整个对象
+similarArr[Symbol.isConcatSpreadable] = false;
+console.log(initial.concat(similarArr)); 
+// ['foo', {...}] ==> ['foo', { '0': 'baz', length: 1, [Symbol(Symbol.isConcatSpreadable)]: false }]
+
+// 其他对象，整个对象添加到数组末尾 - 整个对象
+otherObject[Symbol.isConcatSpreadable] = false;
+console.log(initial.concat(otherObject));
+// [ 'foo', Set(1) ] ==> [ 'foo', Set(1) { 'qux', [Symbol(Symbol.isConcatSpreadable)]: false } ]
+```
+
+
+
+**值为 true 或者 真值时，数组对象、类数组对象、其他对象**
+
+```js
+// 普通数组，将整个对象打平添加到数组末尾 - 打平
+array[Symbol.isConcatSpreadable] = true;
+console.log(initial.concat(array)); // ['foo', 'bar']
+
+// 类数组对象，将整个对象打平添加到数组末尾 - 打平
+similarArr[Symbol.isConcatSpreadable] = true;
+console.log(initial.concat(similarArr)); // [ 'foo', 'baz' ]
+
+// 其他对象，会被忽略掉
+otherObject[Symbol.isConcatSpreadable] = true;
+console.log(initial.concat(otherObject));   // ['foo']
+```
+
 
 
 ## 8、Symbol.iterator
 
+使用`Symbol.iterator` 作为属性时，该属性表示一个方法，对应的方法返回一个默认的迭代器，由 *for-of* 使用。
+
+> 详情参考第七章迭代器
+
 
 
 ## 9、Symbol.match
+
+使用`Symbol.match` 作为属性时，该属性表示一个正则表达式方法，对应的方法会使用正则表达式去匹配字符串，由 `String.prototype.match()` 方法使用。
+
+`String.prototype.match()`  会将非正则表达式转化成正则表达式，如果不想要这种行为，可以通过 `Symbol.match` 重写方法。
+
+```js
+class FooMatcher {
+    static [Symbol.match](target) {
+        return target.includes('foo');
+    }
+}
+
+console.log('foobar'.match(FooMatcher)); // true 
+console.log('barbaz'.match(FooMatcher)); // false
+```
+
+
+
+
 
 
 
