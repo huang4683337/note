@@ -243,6 +243,7 @@ export default {
 
 ```
 src/utils/create.js
+使用的是 vue 的 API 中的 install 方法
 ```
 
 ```js

@@ -97,7 +97,7 @@ console.log(isFinite(Infinity));	// false
 | Boolean   | Number( true \| fales )                                      | 1\|0                |
 | Number    | Number( 1 )                                                  | 直接返回            |
 | String    | Number( ' ' \| '12' \| '12s' \| '0xf' )                      | 0 \| 12 \| NaN \|15 |
-| Object    | 先试用  *valueOf()*  按照前面 5 类数据处理。如果返回 *NaN* 则再次调用 *toString()* 按照字符串规则转换 `变量.valueOf()|变量.valueOf().toString()` |                     |
+| Object    | 1、先使用  *valueOf()*  按照前面 5 类数据处理。<br />2、如果返回 *NaN* 则再次调用 *toString()* 按照字符串规则转换 <br />3、最后将字符串按照规则转换为数字<br />`变量.valueOf() | 变量.valueOf().toString(); 例如 parseInt()` |                     |
 
 
 
