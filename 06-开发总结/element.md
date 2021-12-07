@@ -288,3 +288,125 @@ handleChange() {
 },
 ```
 
+
+
+## element 表单重置 resetFields 不生效的问题
+
+```
+1 - 此方法用于将 form 表单的数据设置为初始值
+2 - 而这个初始值是在 form mounted 生命周期被赋值上去的
+3 - 所以，在 form mounted 之前，如果给 form 表单赋值了，那么后面调用 resetFields() 都是无效的，因为 form表单的初始值已经在 mounted 之前就被赋值了
+```
+
+```js
+// 解决方案
+// 需要在 form mounted 之后再对 表单的字段赋值
+this.$nextTick(()=>{
+    // 在这里给表单的字段赋值
+})
+```
+
+
+
+## element Dialog 中的 befor-close
+
+```
+1 - 在弹框关闭前触发，也就是在控制弹框关闭、打开的属性等于 false 之前触发
+```
+
+
+
+## el-select 的 value 属性为对象时，切换select异常
+
+```
+解决方案：
+1 - <el-select> 中添加 value-key 属性
+2 - value-key 具有唯一性，对应绑定值 :value 中的唯一属性
+3 - 例：value-key='orgId', orgId 就是 item 中的唯一表示标识
+```
+
+```vue
+<el-select v-model="select" @change="selectCange">
+    <el-option -for="item in options"  :key="item.key" :label="item.key" :value="item.v"></el-option>
+</el-select>
+```
+
+
+
+**1、value 属性的值为对象**
+
+```js
+options = [
+	{
+    key:'租户1',
+    v: {
+      orgId:'1111111',
+      // other prop ...
+    }
+  },
+  {
+    key:'租户1',
+    v: {
+      orgId:'222222',
+      // other prop ...
+    }
+  },
+]
+```
+
+
+
+**2、点击 select 框来回切换**
+
+```
+select 的值不发生改变了
+```
+
+
+
+**3、解决方案**
+
+```js
+// value-key : 作为 value 唯一标识的键名，绑定值为对象类型时必填
+// 1、value-key 的值必须是 <el-option :value='item'> ，item 中存在的
+// 2、value-key 必须是 item 中唯一的值
+```
+
+```vue
+<el-select v-model="select" @change="selectCange" value-key="orgId"></el-select>
+```
+
+
+
+
+
+## el-popover 在 e l-tab 中使用
+
+```
+问题：
+	在 el-tab 中操作按钮中使用了 el-popover 嵌入其他操作按钮，但是无法通过按钮关闭。
+```
+
+```
+解决方案：
+	利用在 el-popover 之外的地方点击会关闭 el-popover
+	1、页面放置一个隐藏按钮
+	2、点击按钮需要触发关闭时，隐式的点击隐藏按钮
+```
+
+```vue
+<el-popover trigger="click">
+	<el-button size="mini" @click="closePopover(xxxx)" > 删除 </el-button>
+  <!-- 隐藏的，用来关闭 popover 的按钮 -->
+  <el-button style="display:none" ref="closePopoverBtn"> 利用 popover 的特性，关闭 popover </el-button>
+</el-popover>
+```
+
+```js
+// 删除按钮
+closePopover(xxxx) {
+  // 关闭popover
+	this.$refs.closePopoverBtn.$el.click();
+}
+```
+
