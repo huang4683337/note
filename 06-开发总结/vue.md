@@ -306,3 +306,39 @@ config文件中
 </div>
 ```
 
+
+
+## 13、使用 el-popover 封装组件
+
+```
+- 因为 el-popover 创建的 DOM 是放在 body 下面的
+- vue 生成的文件是放在 .app 下面的
+- 当一个组件使用 el-popover 封装时，在 <style lang="less" scoped></style> 中时不能修改样式的
+- 所以需要一个额外的参数，来存放新的样式
+```
+
+**封装**
+
+
+```html
+<el-popover>
+  <div :class="['multiple-select__options', cssParams]"></div>
+</el-popover>
+```
+
+```js
+props: {
+  cssParams: {
+    type: String,
+    default: ''
+	},
+}
+```
+
+```html
+// 使用
+<multiple-select cssParams="coutomer-select"></multiple-select>
+```
+
+
+
