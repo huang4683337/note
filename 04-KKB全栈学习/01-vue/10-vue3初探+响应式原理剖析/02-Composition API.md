@@ -29,7 +29,7 @@
 
 <script>
     // 用到什么引入什么
-    // 没引入的打包时，回被摇树优化掉
+    // 没引入的打包时，会被摇树优化掉
     const { createApp, reactive，computed } = Vue;
 
     // 组合 API
@@ -171,14 +171,66 @@
 
 
 
+## computed
+
+```html
+<template>
+    <div>
+        {{ resCount}}
+        <el-input
+            v-model="count"
+            placeholder="Please input"
+        />
+    </div>
+</template>
+
+<script>
+import { defineComponent, reactive, toRefs, computed } from 'vue';
+
+export default defineComponent({
+    setup() {
+        const state = reactive({
+            count: 0
+        });
+        const resCount = computed(() => +state.count + 2);
+        return {
+            ...toRefs(state),
+            resCount
+        };
+    }
+});
+</script>
+```
 
 
-## 单值响应式
+
+
+
+## 单值响应式 ref
+
+**使用方式**
 
 ```
-- 通过 ref 包装一个单值响应式
-- html 中写时不用 state.xx, 直接 xxx
+1 - 通过 ref 包装一个单值响应式，const v = ref(值|空);
+2 - 通过 xx.value 获取定义的值，v.value = '';
+3 - 在 setup 中 return 出去
+2 - html 中写时不用 state.xx, 直接 xxx
 ```
+
+
+
+**具有功能**
+
+```
+1 - js 中定义一个单值相应式
+2 - 通过 ref 获取 DOM
+	  <a ref='aRef'>
+	  const aRef = ref(null);
+	  aref.xx(); // 调用 DOM 方法
+	  return { aRef }
+```
+
+
 
 ```html
 <div id="app">
