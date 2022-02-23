@@ -43,58 +43,6 @@ a 既可以是数字 也可以是 字符串
 
 
 
-声明文件
-
-+ 对自己写的文件进行声明
-
-  ```js
-  // index.js
-  
-  import VueRouter from './vue-router'
-  // 实现一个VueRouter类
-  const router = new VueRouter({
-    routes
-  })
-  
-  export default router
-  ```
-
-  ```js
-  // index.d.ts
-  import VueRouter from 'vue-router'
-  
-  declare const router: VueRouter
-  
-  export default router
-  ```
-
-+ 在某些模块上进行扩充
-
-  vue 项⽬中还可以在 `shims-vue.d.ts` 中对已存在模块进⾏补充
-
-  ```shell
-  $ npm i @types/xxx
-  ```
-
-  ```js
-  // main.ts
-  // axios 挂载到 vue 原型上
-  import axios from 'axios'
-  Vue.prototype.$axios = axios;
-  ```
-
-  ```js
-  //  shims-vue.d.ts
-  import Vue from "vue";
-  import { AxiosInstance } from "axios";
-  
-  declare module "vue/types/vue" {	// 在 node_modules 下找到 vue/types/vue
-   interface Vue {	// 在 vue.d.ts 中扩展 axiox
-     $axios: AxiosInstance;
-   }
-  }
-  ```
-
 
 
 装饰器
