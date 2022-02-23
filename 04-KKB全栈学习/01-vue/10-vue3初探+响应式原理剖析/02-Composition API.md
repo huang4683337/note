@@ -29,7 +29,7 @@
 
 <script>
     // 用到什么引入什么
-    // 没引入的打包时，回被摇树优化掉
+    // 没引入的打包时，会被摇树优化掉
     const { createApp, reactive，computed } = Vue;
 
     // 组合 API

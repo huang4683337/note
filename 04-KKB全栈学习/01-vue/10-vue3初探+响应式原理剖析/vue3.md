@@ -45,6 +45,8 @@
 $ vue -V
 
 # 卸载以前的 vue-cli
+
+# 安装最新版本 vue-cli
 $ npm install -g @vue/cli@next
 # OR
 $ yarn global add @vue/cli@next
