@@ -38,7 +38,7 @@ devDependencies： 开发环境所用插件
 
 
 
-## 4、npm 的使用
+## 4、npm 的命令
 
 ```bash
 $ npm install 	# 按照package.json中的配置拉取包
@@ -52,6 +52,7 @@ $ npm uninstall 包的名字 --save  	# 删除某个包
 $ npm help 	#帮助文档
 
 $ npm publish   # 向npm发布自己的包  我们需要去npm官网创建自己的账号
+# 账号：hkw20220412 密码：(名字加上)4683337
 
 $ npm view 包的名字 versions	# 查看某个包所有版本
 ```

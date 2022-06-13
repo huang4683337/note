@@ -29,7 +29,7 @@
 
 `setup(props, context)`  /  `setup( props, (attrs, slots, emit) )`
 
-+ props：父组件传入，在 props 接收的属性组成的对象
++ **props：**父组件传入 && 在子组件中通过 props 接收的属性，组成的对象
 
   ```vue
   <!-- 父组件 -->
@@ -45,11 +45,23 @@
 
   
 
-+ attrs：父组件传入，没有在 props 接收的属性组成的对象，相当于 this.$attrs
++ **attrs：**父组件传入 && 没有在子组件中通过 props 接收的属性，组成的对象，相当于 this.$attrs
 
-+ slots：所有传入插槽的内容组成的对象，相当于 this.$slots
+  ```vue
+  setup(props, context) {
+      console.log(context.attrs);
+  }
+  ```
 
-+ emit：用来分发自定义事件的函数，相当于 this.$emit
++ **slots：**所有传入插槽的内容组成的对象，相当于 this.$slots
+
+  ```vue
+  setup(props, context) {
+      console.log(context.slots);
+  }
+  ```
+
++ **emit**：用来分发自定义事件的函数，相当于 this.$emit
 
   ```vue
   <!-- 父组件 -->
@@ -75,6 +87,7 @@
 ### ref：定义单值响应式
 
 + 定义单值响应式（一般用于定义基本数据类型的数据）
++ ref 内部是通过对 value 属性添加 getter/setter 来实现对数据的劫持
 + 通过 xx.value 获取、修改单值响应式
 
 ```js
@@ -84,6 +97,32 @@ let count = ref(0);
 // 通过 xx.value 获取、修改单值响应式
 console.log( count.value )
 count.value++;
+```
+
+
+
+#### ref 定义多值响应式
+
+如果使用 ref 定义对象/数组，vue 内部会自动将其转化为 reactive 的代理对象
+
+```vue
+<div>{{msg.name}}</div>
+<button @click="handleClick">点我啊</button>
+
+setup() {
+    let msg = ref({
+        name: 'Tome'
+    });
+
+    const handleClick = () => {
+        msg.value.name += '=';
+    };
+
+    return {
+        msg,
+        handleClick
+    };
+}
 ```
 
 
