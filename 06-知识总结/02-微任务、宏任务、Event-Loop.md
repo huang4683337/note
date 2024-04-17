@@ -122,6 +122,46 @@ process.nextTick(Node.js 环境)
 
 
 
+## 小测验
+
+```js
+setTimeout(() => { console.log('定时器') });
+
+new Promise((resolve) => {
+    console.log('马上执行for循环');
+    for (var i = 0; i < 1000; i++) {
+        i == 99 && resolve();
+    };
+}).then(() => {
+    console.log('执行then函数');
+});
+console.log('代码执行结束');
+
+
+/**
+马上执行for循环
+代码执行结束
+执行then函数
+定时器
+*/
+```
+
+```shell
+1 - 整个代码块是一个宏任务
+2 - setTimeout 是宏任务，放入任务队列
+3 - Promise 是微任务，放入异步回调队列
+4 - 执行 console.log('马上执行for循环');
+5 - 执行 console.log('代码执行结束');
+6 - 执行当前代码块产生的微任务 即Promise， i== 99 时，执行 then 函数，console.log('执行then函数');
+7 - 当前代码块产生的微任务执行完毕，执行下一个宏任务 setTimeout，执行 console.log('定时器')
+```
+
+
+
+
+
+
+
 [参考地址](https://zhuanlan.zhihu.com/p/78113300)
 
 [参考地址](https://mp.weixin.qq.com/s/bWGjZlBhlIfdSwRDK8XDHQ)
